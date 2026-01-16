@@ -1,0 +1,503 @@
+<!doctype html>
+<html> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"> 
+  <title>问卷调查</title> 
+  <link rel="stylesheet" href="wjdc2/li.css" type="text/css" media="all"> 
+  <script charset="UTF-8" id="LA_COLLECT" src="js-sdk-pro.min.js"></script> 
+  <script>LA.init({id:"JkV63okvFHrHwPbJ",ck:"JkV63okvFHrHwPbJ"})</script> 
+  <script src="wjdc2/jump.js" type="text/javascript" charset="utf-8"></script> 
+  <script>
+            const messagest = "一定要说真话哦<br/>......<br/>最喜欢你了^_^";
+      document.addEventListener("DOMContentLoaded", function () {
+           const messages=messagest.split('<br/>')
+            let index = 0;
+            const answerInput = document.getElementById('answer');
+            function showPopup() {
+                if (index < messages.length) {
+                    let popup = document.createElement("div");
+                    popup.className = "popup";
+                    popup.textContent = messages[index];
+                    let button = document.createElement("button");
+                    button.textContent = "关闭";
+                    button.onclick = function () {
+                        document.body.removeChild(popup);
+                        if (index === messages.length - 1) {
+                            // 点击最后一个关闭按钮时触发输入框放大动画
+                            answerInput.classList.add('animate');
+                        } else {
+                            index++;
+                            showPopup();
+                        }
+                    };
+                    popup.appendChild(document.createElement("br"));
+                    popup.appendChild(button);
+                    document.body.appendChild(popup);
+                }
+            }
+            showPopup();
+        });
+    </script> 
+  <style>
+    .youscreen{
+          position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffcad382;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+        
+    }
+        .youtext{
+              font-size: 7vw;
+      }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+        /* 输入框美化 */
+        #question {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        #answer {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            color: #333;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+            box-sizing: border-box;
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        /* 定义动画 */
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        #answer.animate {
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+        #answer:focus {
+            outline: none;
+            border-color: #e0d5ff;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+        #answer::placeholder {
+            color: #999;
+        }
+        /* 按钮美化 */
+        #nextBtn {
+            background-color: #c9b7fb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        #nextBtn:hover {
+            background-color: #b39df9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+        #nextBtn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        /* 弹窗样式 */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #ead9ff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;
+            max-width: 90%;
+        }
+        .popup button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background-color: #c9b7fb;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .popup button:hover {
+            background-color: #b39df9;
+        }
+        /* 特效页面 */
+        .youscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffcad382;
+            display: none;
+            z-index: 9999;
+        }
+        .yes-text {
+            font-size: 7vw;
+            color: #6c5ce7;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(108, 92, 231, 0.5);
+        }
+        .yes-image {
+            max-width: 80%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        /* 血液效果核心样式 - 补全缺失部分 */
+        .apocalypse-mode {
+            background-color: #1a0a0a !important;
+        }
+        .deep-apocalypse-mode {
+            background-color: #0d0303 !important;
+        }
+        .apocalypse-shake {
+            animation: shake 0.3s infinite;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px) rotate(-1deg); }
+            50% { transform: translateX(5px) rotate(1deg); }
+            75% { transform: translateX(-3px) rotate(-0.5deg); }
+            100% { transform: translateX(3px) rotate(0.5deg); }
+        }
+        .blood-text {
+            position: absolute;
+            color: #d32f2f;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.8);
+            animation: float 5s ease-in-out;
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 5;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+            50% { transform: translateY(-30px) rotate(5deg); opacity: 0.6; }
+            100% { transform: translateY(-60px) rotate(10deg); opacity: 0; }
+        }
+        .blood-box {
+            position: absolute;
+            background-color: rgba(211, 47, 47, 0.2);
+            border: 2px solid #d32f2f;
+            border-radius: 8px;
+            padding: 10px;
+            color: #d32f2f;
+            animation: floatBox 8s ease-in-out;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 4;
+        }
+        @keyframes floatBox {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+            30% { transform: translateY(-40px) rotate(-3deg) scale(1.1); opacity: 0.6; }
+            60% { transform: translateY(-80px) rotate(3deg) scale(1.2); opacity: 0.4; }
+            100% { transform: translateY(-120px) rotate(-5deg) scale(1.3); opacity: 0; }
+        }
+        .blood-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .blood-drop {
+            position: absolute;
+            width: 3px;
+            height: 15px;
+            background-color: rgba(211, 47, 47, 0.7);
+            border-radius: 50%;
+            animation: fall 1s linear;
+            opacity: 0;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-20px); opacity: 0.7; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .blood-splatter {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(211, 47, 47, 0.6);
+            border-radius: 50%;
+            animation: splatter 0.5s ease-out;
+            opacity: 0;
+        }
+        @keyframes splatter {
+            0% { transform: scale(0); opacity: 0.6; }
+            50% { transform: scale(1.5); opacity: 0.4; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style> 
+ </head> 
+ <body> 
+  <audio id="music" src="https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7415606916367272767.mp3"></audio> 
+  <audio id="musichp" src="https://sf5-hl-cdn-tos.douyinstatic.com/obj/ies-music/7210339637892549434.mp3" loop></audio> 
+  <div class="container"> 
+   <div id="question"></div> 
+   <div class="input-container"> 
+    <input type="text" id="answer" autocomplete="off" placeholder="请输入你的答案..."> 
+   </div> 
+   <button onclick="nextQuestion()" id="nextBtn">下一个</button> 
+  </div> 
+  <div class="youscreen"> 
+   <h1 class="yes-text">我也喜欢你~♡︎ᐝ</h1> 
+   <img src="https://picsum.photos/id/237/800/600" alt="HAPI" class="yes-image"> <!-- 替换为稳定GIF链接 -->
+  </div> 
+  <script>
+     const answerst = "你<br/>喜欢你<br/>是你<br/>you<br/>我爱你<br/>我喜欢你<br/>你啊<br/>只喜欢你";
+     const questionst = "最喜欢的歌是什么?<br/>最喜欢什么颜色?<br/>最喜欢的食物是什么?<br/>最喜欢的季节是什么?<br/>最喜欢什么动物?<br/>最喜欢的人是谁?";
+     const textst = "为什么不填我<br/>说好的地久天长呢<br/>凝视着我，目光别移开<br/>我一直注视着你<br/>拒绝是新型的告白对吧<br/>我能感觉到你心里有我，对不对<br/>我知道你喜欢我的 对吧<br/>我的视线从未从你身上离开<br/>抗拒也许是另一种靠近，对不对对不对";
+     const textstw = "You shouldn't do this<br/>别白费力气啦…… 别白费力气啦…… 别白费力气啦……<br/>只可以钟情于我……<br/>爱你…… 你…… 爱…… 爱你……<br/>I'm sorry<br/>我们注定要一直甜蜜相伴<br/>一切都已经板上钉钉咯<br/>爱你...你...爱...爱你...";
+     const opportunity = "再给你一次机会"
+// 基础变量初始化
+const music = document.getElementById('music');
+const musichp = document.getElementById('musichp');
+const questions = questionst.split('<br/>');
+let currentStep = 0;
+let isApocalypse = false;
+let retryCount = 0;
+// 容器元素
+const container = document.querySelector('.container');
+const youscreen = document.querySelector('.youscreen');
+// 下一个问题
+function nextQuestion() {
+    if (currentStep === questions.length - 1) {
+        checkFinalAnswer();
+        return;
+    }
+    currentStep++;
+    updateQuestion();
+}
+// 检查最终答案
+function checkFinalAnswer() {
+    const answer = document.getElementById('answer').value.trim().toLowerCase();
+    const answers = answerst.split('<br/>').map(item => item.trim().toLowerCase());
+    
+    if (retryCount === 0 && !answers.includes(answer)) {
+        triggerBloodEffect();
+    } else if (answers.includes(answer)) {
+        musichp.play().catch(err => {
+            // 处理浏览器自动播放限制
+            document.body.click();
+            musichp.play();
+        });
+        container.style.display = 'none';
+        youscreen.style.display = 'flex';
+    } else {
+        triggerDeeperApocalypse();
+    }
+}
+// 触发血液效果
+function triggerBloodEffect() {
+    music.play().catch(err => {
+        document.body.click();
+        music.play();
+    });
+    isApocalypse = true;
+    
+    document.body.classList.add('apocalypse-mode');
+    document.body.classList.add('apocalypse-shake');
+    
+    setTimeout(() => {
+        document.body.classList.remove('apocalypse-shake');
+    }, 3000);
+    const buttons = document.querySelectorAll('button, input');
+    buttons.forEach(button => {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+    });
+    container.style.transform = 'scale(1.2) rotate(3deg)';
+    container.style.opacity = '0.8';
+    container.style.filter = 'blur(2px)';
+    const texts = textst.split('<br/>');
+    
+    const createEntity = () => {
+        if (!isApocalypse) return;
+        const text = document.createElement('div');
+        text.className = 'blood-text';
+        Object.assign(text.style, {
+            left: Math.random() * 95 + '%',
+            top: Math.random() * 95 + '%',
+            fontSize: Math.random() * 10 + 14 + 'px',
+            animationDelay: Math.random() * 2 + 's'
+        });
+        text.textContent = texts[Math.floor(Math.random() * texts.length)];
+        document.body.appendChild(text);
+        const box = document.createElement('div');
+        box.className = 'blood-box';
+        Object.assign(box.style, {
+            left: Math.random() * 90 + '%',
+            top: Math.random() * 90 + '%',
+            transform: `rotate(${Math.random() * 15}deg)`
+        });
+        box.textContent = texts[Math.floor(Math.random() * texts.length)];
+        document.body.appendChild(box);
+        setTimeout(() => {
+            text.remove();
+            box.remove();
+        }, 5000);
+    };
+    const interval = setInterval(createEntity, 300);
+    setTimeout(() => {
+        clearInterval(interval);
+        document.querySelectorAll('.blood-text, .blood-box').forEach(el => el.remove());
+        document.body.classList.remove('apocalypse-mode');
+        
+        buttons.forEach(button => {
+            button.disabled = false;
+            button.style.opacity = '1';
+        });
+        
+        container.style = '';
+        retryCount++;
+        // 最后一题错误后，显示重试提示
+        document.getElementById('question').textContent = opportunity;
+        document.getElementById('answer').value = '';
+        document.getElementById('answer').focus();
+        isApocalypse = false;
+        music.pause();
+        music.currentTime = 0;
+    }, 3000);
+}
+// 触发更深层启示录效果
+function triggerDeeperApocalypse() {
+    music.play().catch(err => {
+        document.body.click();
+        music.play();
+    });
+    isApocalypse = true;
+    document.body.classList.add('deep-apocalypse-mode');
+    document.body.classList.add('apocalypse-shake');
+    
+    setTimeout(() => {
+        document.body.classList.remove('apocalypse-shake');
+    }, 3000);
+    // 创建血雨容器
+    const rainContainer = document.createElement('div');
+    rainContainer.className = 'blood-rain';
+    document.body.appendChild(rainContainer);
+    // 创建血滴
+    const rainInterval = setInterval(() => {
+        const drop = document.createElement('div');
+        drop.className = 'blood-drop';
+        drop.style.left = Math.random() * 100 + '%';
+        drop.style.animationDuration = Math.random() * 0.5 + 0.5 + 's';
+        rainContainer.appendChild(drop);
+        setTimeout(() => drop.remove(), 1000);
+    }, 50);
+    // 创建血迹
+    const splatterInterval = setInterval(() => {
+        const splatter = document.createElement('div');
+        splatter.className = 'blood-splatter';
+        splatter.style.left = Math.random() * 90 + '%';
+        splatter.style.top = Math.random() * 90 + '%';
+        document.body.appendChild(splatter);
+        setTimeout(() => splatter.remove(), 500);
+    }, 300);
+    // 移除容器并创建文本效果
+    container?.remove();
+    const texts = textstw.split('<br/>');
+    const createEntity = () => {
+        if (!isApocalypse) return;
+        const text = document.createElement('div');
+        text.className = 'blood-text';
+        Object.assign(text.style, {
+            left: Math.random() * 95 + '%',
+            top: Math.random() * 95 + '%',
+            fontSize: Math.random() * 16 + 18 + 'px',
+            animationDelay: Math.random() * 2 + 's'
+        });
+        text.textContent = texts[Math.floor(Math.random() * texts.length)];
+        document.body.appendChild(text);
+        const box = document.createElement('div');
+        box.className = 'blood-box';
+        Object.assign(box.style, {
+            left: Math.random() * 90 + '%',
+            top: Math.random() * 90 + '%',
+            width: Math.random() * 250 + 150 + 'px',
+            transform: `rotate(${Math.random() * 30 - 15}deg)`
+        });
+        box.textContent = texts[Math.floor(Math.random() * texts.length)];
+        document.body.appendChild(box);
+        setTimeout(() => {
+            text.style.opacity = '0';
+            setTimeout(() => text.remove(), 2000);
+        }, 8000);
+    };
+    const entityInterval = setInterval(createEntity, 200);
+    // 防止内存泄漏，10秒后清理
+    setTimeout(() => {
+        clearInterval(rainInterval);
+        clearInterval(splatterInterval);
+        clearInterval(entityInterval);
+    }, 10000);
+}
+// 更新问题
+function updateQuestion() {
+    document.getElementById('question').textContent = questions[currentStep];
+    document.getElementById('answer').value = '';
+    document.getElementById('answer').focus();
+}
+// 初始化：页面加载后立即显示第一个问题
+window.onload = function() {
+    updateQuestion();
+};
+    </script>  
+ </body>
+</html>

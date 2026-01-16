@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湖癔科技 - 专业技术服务提供商</title>
+    <style>
+        /* 全局基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #0a192f; color: #fff; min-height: 100vh; overflow-x: hidden; }
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .nav-header { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(17, 34, 64, 0.95); border-bottom: 1px solid #64ffda; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 998; }
+        .logo-group { display: flex; flex-direction: column; align-items: flex-start; }
+        .nav-logo { font-size: 1.5rem; color: #64ffda; font-weight: bold; }
+        .nav-logo-eng { font-size: 0.7rem; color: #fff; font-weight: bold; letter-spacing: 1px; }
+        .nav-menu a { color: #a8b2d1; text-decoration: none; margin-left: 25px; transition: all 0.3s ease; position: relative; }
+        .nav-menu a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 2px; background: #64ffda; transition: width 0.3s ease; }
+        .nav-menu a:hover { color: #64ffda; }
+        .nav-menu a:hover::after { width: 100%; }
+        .container { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .footer { text-align: center; margin-top: 50px; color: #a8b2d1; font-size: 0.9rem; padding-bottom: 20px; }
+        
+        /* 统一按钮样式 */
+        .btn-unified { width: 100%; padding: 12px 15px; border-radius: 8px; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; justify-content: center; align-items: center; gap: 5px; outline: none; }
+        .btn-primary { background: linear-gradient(90deg, #64ffda, #4cc9f0); color: #0a192f; }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(100, 255, 218, 0.4); }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-secondary { background: rgba(17, 34, 64, 0.8); color: #a8b2d1; border: 1px solid #3a536b; }
+        .btn-secondary:hover { background: rgba(17, 34, 64, 1); color: #fff; transform: scale(1.02); }
+        .btn-secondary:active { transform: scale(0.98); }
+        .btn-highlight { background: linear-gradient(90deg, #ffcc00, #ff9900); color: #0a192f; }
+        .btn-highlight:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+        .btn-highlight:active { transform: scale(0.98); }
+        .btn-enterprise { background: linear-gradient(90deg, #34d399, #38bdf8); color: #0a192f; }
+        .btn-enterprise:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(52, 211, 153, 0.4); }
+        .btn-enterprise:active { transform: scale(0.98); }
+        .btn-danger { background: linear-gradient(90deg, #ff6b6b, #ff4757); color: #fff; }
+        .btn-danger:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); }
+        .btn-danger:active { transform: scale(0.98); }
+        
+        /* 刷新按钮样式 */
+        .refresh-btn { padding: 8px 15px; margin-left: 10px; width: auto; }
+        
+        /* 页面容器 + 进入动画 */
+        .page { display: none; position: relative; width: 100%; opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
+        .page.animate-in { animation: pageAnimate 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes pageAnimate {
+            0% { opacity: 0; transform: translateY(50px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* 1. 首页样式 */
+        .home-container { text-align: center; padding: 50px 20px; }
+        .logo { font-size: 3.2rem; color: #64ffda; margin-bottom: 5px; text-shadow: 0 0 20px rgba(100, 255, 218, 0.5); }
+        .logo-eng { font-size: 0.9rem; color: #ffffff; font-weight: bold; margin-bottom: 40px; letter-spacing: 1px; }
+        .slogan { font-size: 1.2rem; color: #a8b2d1; margin-bottom: 50px; line-height: 1.6; }
+        .service-btns { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+        .service-btn { width: 120px; height: 120px; border-radius: 12px; background: rgba(17, 34, 64, 0.9); border: 2px solid #64ffda; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .service-btn:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 0 25px rgba(100, 255, 218, 0.4); border-color: #fff; }
+        .btn-icon { font-size: 1.8rem; color: #64ffda; }
+        .btn-text { font-size: 1rem; font-weight: 600; color: #fff; }
+        
+        /* 2. 个人/企业服务页面 */
+        .pay-header { text-align: center; margin-bottom: 40px; opacity: 0; animation: fadeIn 1s 0.3s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .pay-header h1 { color: #64ffda; font-size: 2.2rem; margin-bottom: 10px; }
+        .pay-header p { color: #a8b2d1; font-size: 1rem; }
+        .product-list { display: grid; gap: 20px; max-width: 700px; margin: 0 auto; }
+        .product-item { background: rgba(17, 34, 64, 0.9); padding: 25px; border-radius: 8px; border-left: 4px solid #64ffda; transition: all 0.3s ease; opacity: 0; animation: productAnimate 0.5s forwards; position: relative; z-index: 2; }
+        @keyframes productAnimate { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .product-item:nth-child(1) { animation-delay: 0.2s; }
+        .product-item:nth-child(2) { animation-delay: 0.3s; }
+        .product-item:nth-child(3) { animation-delay: 0.4s; }
+        .product-item:nth-child(4) { animation-delay: 0.5s; }
+        .product-item:nth-child(5) { animation-delay: 0.6s; }
+        .product-item:hover { transform: translateY(-5px) translateX(5px); box-shadow: 0 0 15px rgba(100, 255, 218, 0.3); }
+        .product-item.highlight { border-left-color: #ffcc00; background: rgba(20, 40, 70, 0.95); }
+        .product-item.enterprise { border-left-color: #34d399; }
+        .product-item h3 { color: #64ffda; font-size: 1.5rem; margin-bottom: 10px; }
+        .product-item.highlight h3 { color: #ffcc00; }
+        .product-item p { color: #a8b2d1; line-height: 1.6; margin-bottom: 15px; }
+        .price { font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; color: #e6f1ff; }
+        
+        /* 3. 支付页样式 */
+        .pay-container { max-width: 450px; background: rgba(17, 34, 64, 0.95); border-radius: 10px; border: 1px solid #64ffda; padding: 40px 30px; margin: 30px auto; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .pay-container:hover { box-shadow: 0 0 20px rgba(100, 255, 218, 0.2); transform: translateY(-3px); }
+        .pay-card-header { text-align: center; margin-bottom: 30px; }
+        .pay-card-header h2 { color: #64ffda; font-size: 1.6rem; margin-bottom: 8px; }
+        .pay-card-header p { color: #a8b2d1; font-size: 0.9rem; }
+        .service-info { background: rgba(10, 25, 47, 0.5); padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .service-info .label { color: #a8b2d1; font-size: 0.85rem; margin-bottom: 5px; }
+        .service-info .value { color: #fff; font-size: 1.1rem; font-weight: 600; }
+        .service-info .price { color: #64ffda; font-size: 1.4rem; font-weight: bold; margin-top: 10px; }
+        .pay-method { margin-bottom: 30px; }
+        .pay-method h3 { color: #fff; font-size: 1rem; margin-bottom: 15px; text-align: center; }
+        .method-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .method-tab { padding: 8px 20px; border-radius: 20px; border: 1px solid #3a536b; background: rgba(10, 25, 47, 0.5); color: #a8b2d1; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
+        .method-tab:hover { transform: translateY(-2px); }
+        .method-tab.active { border-color: #64ffda; background: rgba(100, 255, 218, 0.1); color: #64ffda; }
+        .qrcode-wrap { text-align: center; padding: 15px; background: rgba(10, 25, 47, 0.3); border-radius: 8px; transition: all 0.3s ease; }
+        .qrcode-wrap:hover { transform: scale(1.03); }
+        .qrcode-wrap img { width: 200px; height: 200px; border-radius: 8px; border: 2px solid #64ffda; }
+        .qrcode-tip { color: #ff6b6b; font-size: 0.85rem; margin-top: 10px; font-weight: 600; }
+        .pay-btn-group { display: flex; gap: 15px; margin-bottom: 20px; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #a8b2d1; text-decoration: none; font-size: 0.85rem; transition: all 0.3s ease; }
+        .back-link:hover { color: #64ffda; transform: translateX(3px); }
+        
+        /* 4. 支付成功页面 */
+        .success-container { max-width: 450px; background: rgba(17, 34, 64, 0.95); border-radius: 10px; border: 1px solid #64ffda; padding: 40px 30px; margin: 50px auto; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .success-container:hover { box-shadow: 0 0 20px rgba(52, 211, 153, 0.2); transform: translateY(-3px); }
+        .success-icon { text-align: center; margin-bottom: 25px; animation: bounce 1s ease; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .success-icon i { color: #34d399; font-size: 4rem; }
+        .success-header h2 { color: #64ffda; font-size: 1.6rem; text-align: center; margin-bottom: 15px; }
+        .success-info { background: rgba(10, 25, 47, 0.5); padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .success-info p { color: #a8b2d1; line-height: 1.6; margin-bottom: 10px; font-size: 0.9rem; }
+        .success-info .order-id { color: #64ffda; font-weight: bold; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        .btn-group .btn-unified { width: auto; padding: 10px 20px; }
+        
+        /* 5. 服务激活页面 */
+        .activate-container { max-width: 450px; background: rgba(17, 34, 64, 0.95); border-radius: 10px; border: 1px solid #64ffda; padding: 40px 30px; margin: 50px auto; transition: all 0.3s ease; opacity: 0; animation: activateAnimate 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; position: relative; z-index: 2; }
+        @keyframes activateAnimate {
+            0% { opacity: 0; transform: translateY(50px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .activate-header { text-align: center; margin-bottom: 30px; }
+        .activate-header h2 { color: #64ffda; font-size: 1.6rem; margin-bottom: 10px; }
+        .activate-header p { color: #a8b2d1; font-size: 0.9rem; }
+        .form-group { margin-bottom: 25px; opacity: 0; animation: formAnimate 0.6s forwards; }
+        @keyframes formAnimate { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .form-group:nth-child(2) { animation-delay: 0.3s; }
+        .form-group:nth-child(3) { animation-delay: 0.5s; }
+        .form-group label { display: block; color: #a8b2d1; margin-bottom: 8px; font-size: 0.85rem; }
+        .form-group input { width: 100%; padding: 12px 15px; border-radius: 6px; border: 1px solid #3a536b; background: rgba(10, 25, 47, 0.5); color: #fff; outline: none; font-size: 0.95rem; transition: all 0.3s ease; }
+        .form-group input:focus { border-color: #64ffda; box-shadow: 0 0 8px rgba(100, 255, 218, 0.3); transform: scale(1.01); }
+        .result { margin-top: 20px; text-align: center; font-size: 0.9rem; padding: 10px; border-radius: 6px; display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result.success { color: #34d399; background: rgba(52, 211, 153, 0.1); border: 1px solid #34d399; display: block; }
+        .result.error { color: #ff6b6b; background: rgba(255, 107, 107, 0.1); border: 1px solid #ff6b6b; display: block; }
+        .tips { margin-top: 20px; text-align: center; color: #a8b2d1; font-size: 0.85rem; }
+        .tips span { color: #ff6b6b; font-weight: bold; }
+        
+        /* 6. 我的订单页面 */
+        .order-container { max-width: 700px; margin: 0 auto; }
+        .order-header { text-align: center; margin-bottom: 40px; }
+        .order-header h2 { color: #64ffda; font-size: 1.8rem; margin-bottom: 10px; }
+        .order-header p { color: #a8b2d1; font-size: 0.95rem; }
+        .order-search { background: rgba(17, 34, 64, 0.9); border-radius: 8px; border: 1px solid #64ffda; padding: 20px; margin-bottom: 30px; display: flex; gap: 15px; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .order-search:hover { box-shadow: 0 0 15px rgba(100, 255, 218, 0.2); }
+        .order-search input { flex: 1; padding: 12px 15px; border-radius: 6px; border: 1px solid #3a536b; background: rgba(10, 25, 47, 0.5); color: #fff; outline: none; font-size: 0.95rem; transition: all 0.3s ease; }
+        .order-search input:focus { border-color: #64ffda; box-shadow: 0 0 8px rgba(100, 255, 218, 0.3); transform: scale(1.01); }
+        .order-search .btn-unified { width: auto; padding: 0 20px; }
+        .order-list { display: grid; gap: 20px; }
+        .order-item { background: rgba(17, 34, 64, 0.9); border-radius: 8px; border-left: 4px solid #34d399; padding: 25px; transition: all 0.3s ease; opacity: 0; animation: orderAnimate 0.5s forwards; position: relative; z-index: 2; }
+        @keyframes orderAnimate { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .order-item:hover { transform: translateY(-5px) translateX(5px); box-shadow: 0 0 15px rgba(52, 211, 153, 0.2); }
+        .order-top { display: flex; justify-content: space-between; margin-bottom: 15px; }
+        .order-name { color: #fff; font-size: 1.1rem; font-weight: 600; }
+        .order-status { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .status-paid { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+        .status-unactivated { background: rgba(255, 204, 0, 0.2); color: #ffcc00; }
+        .status-activated { background: rgba(100, 255, 218, 0.2); color: #64ffda; }
+        .order-middle { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .order-middle p { color: #a8b2d1; font-size: 0.85rem; }
+        .order-middle p span { color: #fff; }
+        .order-bottom { display: flex; gap: 15px; }
+        .order-bottom .btn-unified { flex: 1; text-align: center; padding: 8px 15px; }
+        .empty-tip { text-align: center; color: #a8b2d1; font-size: 1rem; padding: 50px 0; background: rgba(17, 34, 64, 0.9); border-radius: 8px; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .empty-tip:hover { box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); }
+        .search-empty { text-align: center; color: #ff6b6b; font-size: 1rem; padding: 50px 0; background: rgba(17, 34, 64, 0.9); border-radius: 8px; position: relative; z-index: 2; }
+        .search-success { text-align: center; color: #34d399; font-size: 1rem; padding: 15px 0; background: rgba(52, 211, 153, 0.1); border-radius: 8px; margin-bottom: 20px; border: 1px solid #34d399; position: relative; z-index: 2; }
+        
+        /* 7. 关于我们页面（年份改为2025） */
+        .about-content { background: rgba(17, 34, 64, 0.9); border-radius: 10px; border: 1px solid #64ffda; padding: 40px; margin-bottom: 30px; transition: all 0.3s ease; max-width: 900px; margin: 0 auto 30px; position: relative; z-index: 2; }
+        .about-content:hover { box-shadow: 0 0 20px rgba(100, 255, 218, 0.1); transform: translateY(-3px); }
+        .about-header { text-align: center; margin-bottom: 30px; }
+        .about-header h2 { color: #64ffda; font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 10px rgba(100, 255, 218, 0.3); }
+        .about-header p { color: #a8b2d1; font-size: 1.1rem; }
+        .about-section { margin-bottom: 30px; }
+        .about-section h3 { color: #64ffda; font-size: 1.5rem; margin-bottom: 15px; border-left: 3px solid #64ffda; padding-left: 10px; }
+        .about-section p { color: #a8b2d1; line-height: 1.8; margin-bottom: 15px; font-size: 0.95rem; }
+        .about-section ul { color: #a8b2d1; line-height: 2; margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+        .about-section ul li { margin-bottom: 8px; }
+        .about-team { background: rgba(10, 25, 47, 0.5); border-radius: 8px; padding: 30px; margin-top: 20px; }
+        .team-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .team-item { text-align: center; padding: 20px; border-radius: 8px; background: rgba(17, 34, 64, 0.8); }
+        .team-item h4 { color: #fff; margin-bottom: 5px; font-size: 1.1rem; }
+        .team-item p { color: #a8b2d1; font-size: 0.9rem; }
+        
+        /* 8. 联系我们页面 */
+        .contact-card { background: rgba(17, 34, 64, 0.9); border-radius: 10px; border: 1px solid #64ffda; padding: 30px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; transition: all 0.3s ease; position: relative; z-index: 2; }
+        .contact-card:hover { transform: translateY(-5px) translateX(5px); box-shadow: 0 0 15px rgba(100, 255, 218, 0.1); }
+        .contact-card .icon { font-size: 2.5rem; color: #64ffda; }
+        .contact-card .info h3 { color: #fff; font-size: 1.2rem; margin-bottom: 5px; }
+        .contact-card .info p { color: #a8b2d1; font-size: 1rem; line-height: 1.5; }
+        .contact-card .info p span { color: #34d399; font-weight: bold; }
+        
+        /* 确认弹窗 */
+        .modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.8); z-index: 999; justify-content: center; align-items: center; display: none; }
+        .modal-box { width: 90%; max-width: 400px; background: rgba(17, 34, 64, 0.95); border-radius: 8px; border: 1px solid #64ffda; padding: 30px; text-align: center; }
+        .modal-title { color: #64ffda; font-size: 1.4rem; margin-bottom: 15px; }
+        .modal-desc { color: #a8b2d1; font-size: 0.95rem; margin-bottom: 25px; }
+        #modalServiceName { color: #a8b2d1; font-size: 0.95rem; margin-bottom: 10px; }
+        .modal-price { color: #e6f1ff; font-size: 1.3rem; font-weight: bold; margin-bottom: 25px; }
+        .modal-btn-group { display: flex; gap: 15px; }
+        .modal-btn-group .btn-unified { width: auto; flex: 1; }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="nav-header">
+        <div class="logo-group">
+            <div class="nav-logo">湖癔科技</div>
+            <div class="nav-logo-eng">HUYI TECHNOLOGY</div>
+        </div>
+        <div class="nav-menu">
+            <a href="javascript:showPage('home')">首页</a>
+            <a href="javascript:showPage('service-activate')">服务激活</a>
+            <a href="javascript:showPage('my-orders')">我的订单</a>
+            <a href="javascript:showPage('about')">关于我们</a>
+            <a href="javascript:showPage('contact')">联系我们</a>
+        </div>
+    </nav>
+    
+    <!-- 页面容器 -->
+    <div class="container">
+        <!-- 1. 首页 -->
+        <div id="home" class="page active">
+            <div class="home-container">
+                <div class="logo">欢迎来到湖癔科技服务平台</div>
+                <div class="logo-eng">WELCOME TO HUYI TECHNOLOGY SERVICE PLATFORM</div>
+                <div class="slogan">专业系统优化 · 定制化企业服务<br>技术驱动 · 品质保障 · 高效响应</div>
+                <div class="service-btns">
+                    <div class="service-btn" onclick="showPage('personal-payment')">
+                        <div class="btn-icon">👤</div>
+                        <div class="btn-text">个人服务</div>
+                    </div>
+                    <div class="service-btn" onclick="showPage('enterprise-payment')">
+                        <div class="btn-icon">🏢</div>
+                        <div class="btn-text">企业服务</div>
+                    </div>
+                    <div class="service-btn" onclick="showPage('service-activate')">
+                        <div class="btn-icon">🔑</div>
+                        <div class="btn-text">激活码激活</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 2. 个人服务页面 -->
+        <div id="personal-payment" class="page">
+            <div class="pay-header">
+                <h1>个人专属技术服务</h1>
+                <p>为个人用户提供高效的系统优化与定制化美化方案</p>
+            </div>
+            <div class="product-list">
+                <div class="product-item">
+                    <h3>系统美化日卡</h3>
+                    <p>单次系统界面美化、图标定制、壁纸优化，打造个性化桌面风格。</p>
+                    <div class="price">¥ 19.9 / 次</div>
+                    <button class="btn-unified btn-primary" onclick="openModal('系统美化日卡', 19.9)">立即支付</button>
+                </div>
+                <div class="product-item">
+                    <h3>系统优化周卡</h3>
+                    <p>7天系统维护+每日美化微调，包含垃圾清理、开机加速。</p>
+                    <div class="price">¥ 39.9 / 周</div>
+                    <button class="btn-unified btn-primary" onclick="openModal('系统优化周卡', 39.9)">立即支付</button>
+                </div>
+                <div class="product-item highlight">
+                    <h3>系统尊享月卡</h3>
+                    <p>30天深度系统优化、专属主题定制、远程技术支持。</p>
+                    <div class="price">¥ 99.9 / 月</div>
+                    <button class="btn-unified btn-highlight" onclick="openModal('系统尊享月卡', 99.9)">立即支付</button>
+                </div>
+                <div class="product-item">
+                    <h3>系统护航年卡</h3>
+                    <p>全年7×12小时技术支持，免费系统升级、病毒查杀、数据备份。</p>
+                    <div class="price">¥ 599 / 年</div>
+                    <button class="btn-unified btn-primary" onclick="openModal('系统护航年卡', 599)">立即支付</button>
+                </div>
+                <div class="product-item highlight">
+                    <h3>系统永久保护服务</h3>
+                    <p>终身系统安全防护、漏洞修复、版本迭代支持，一次购买终身保障。</p>
+                    <div class="price">¥ 1299 / 永久</div>
+                    <button class="btn-unified btn-highlight" onclick="openModal('系统永久保护服务', 1299)">立即支付</button>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 3. 企业服务页面 -->
+        <div id="enterprise-payment" class="page">
+            <div class="pay-header">
+                <h1>企业定制化技术服务</h1>
+                <p>为企业提供一站式系统部署、开发与运维解决方案</p>
+            </div>
+            <div class="product-list">
+                <div class="product-item enterprise">
+                    <h3>企业基础技术服务</h3>
+                    <p>中小企业基础系统部署、员工电脑调试、办公软件安装。</p>
+                    <div class="price">¥ 2999 / 次</div>
+                    <button class="btn-unified btn-enterprise" onclick="openModal('企业基础技术服务', 2999)">立即支付</button>
+                </div>
+                <div class="product-item enterprise">
+                    <h3>企业技术部署</h3>
+                    <p>企业级系统一站式部署、调试、优化，适配多终端场景。</p>
+                    <div class="price">¥ 3999 / 次</div>
+                    <button class="btn-unified btn-enterprise" onclick="openModal('企业技术部署', 3999)">立即支付</button>
+                </div>
+                <div class="product-item enterprise">
+                    <h3>企业定制开发</h3>
+                    <p>基于企业业务流程定制专属软件、管理系统，提升办公效率。</p>
+                    <div class="price">¥ 8999 / 项</div>
+                    <button class="btn-unified btn-enterprise" onclick="openModal('企业定制开发', 8999)">立即支付</button>
+                </div>
+                <div class="product-item highlight">
+                    <h3>企业年度运维</h3>
+                    <p>全年7×24小时技术支持，定期系统升级、漏洞扫描、数据备份。</p>
+                    <div class="price">¥ 12999 / 年</div>
+                    <button class="btn-unified btn-highlight" onclick="openModal('企业年度运维', 12999)">立即支付</button>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有所有</div>
+        </div>
+        <!-- 4. 支付页 -->
+        <div id="payment-page" class="page">
+            <div class="pay-container">
+                <div class="pay-card-header">
+                    <h2>订单支付</h2>
+                    <p>扫码转账并备注订单编号，联系客服核实</p>
+                </div>
+                <div class="service-info">
+                    <div class="label">服务名称</div>
+                    <div class="value" id="serviceName">系统美化日卡</div>
+                    <div class="label">订单编号</div>
+                    <div class="value" id="orderNumber">--</div>
+                    <div class="label">订单金额</div>
+                    <div class="price" id="servicePrice">¥ 19.9</div>
+                </div>
+                <div class="pay-method">
+                    <h3>选择支付方式</h3>
+                    <div class="method-tabs">
+                        <div class="method-tab active" onclick="switchPay(this, 'wechat')">微信支付</div>
+                        <div class="method-tab" onclick="switchPay(this, 'alipay')">支付宝支付</div>
+                    </div>
+                    <div class="qrcode-wrap" id="qrcodeContainer">
+                        <img src="https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEN_kZpShl5zTElP52AkZ1a5ExJh2eQOQAC_hoAAig5UFa3FgzakunFATYE.png" alt="微信收款码">
+                        <p class="qrcode-tip">⚠️ 必须备注订单编号，否则无法核实！</p>
+                    </div>
+                </div>
+                <div class="pay-btn-group">
+                    <button class="btn-unified btn-primary" onclick="confirmPayment()">确认支付</button>
+                    <button class="btn-unified btn-secondary" onclick="openUnpaidModal()">未完成支付</button>
+                </div>
+                <a href="javascript:showPage('my-orders')" class="back-link">返回订单列表</a>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 5. 支付成功页面 -->
+        <div id="payment-success" class="page">
+            <div class="success-container">
+                <div class="success-icon">✅</div>
+                <div class="success-header"><h2>支付成功</h2></div>
+                <div class="success-info" id="successInfo">
+                    <p>服务名称：<span id="successServiceName">系统美化日卡</span></p>
+                    <p>订单编号：<span class="order-id" id="successOrderId">123456</span></p>
+                    <p>支付金额：<span class="price" id="successServicePrice">¥ 19.9</span></p>
+                    <p>激活码：<span class="order-id" id="activationCode">--</span>（客服发放）</p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-unified btn-primary" onclick="showPage('my-orders')">查看订单</button>
+                    <button class="btn-unified btn-enterprise" onclick="showPage('service-activate')">去激活服务</button>
+                    <button class="btn-unified btn-secondary" onclick="showPage('home')">返回首页</button>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 6. 服务激活页面（新增刷新按钮） -->
+        <div id="service-activate" class="page">
+            <div class="activate-container">
+                <div class="activate-header">
+                    <h2>服务激活码激活</h2>
+                    <p>输入订单编号和16位激活码</p>
+                </div>
+                <div class="form-group">
+                    <label for="activateOrderId">订单编号</label>
+                    <input type="text" id="activateOrderId" placeholder="6位订单编号">
+                </div>
+                <div class="form-group">
+                    <label for="activateCodeInput">激活码（16位）</label>
+                    <input type="text" id="activateCodeInput" placeholder="输入激活码">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-unified btn-primary" onclick="checkActivate()">立即激活</button>
+                    <button class="btn-unified btn-secondary refresh-btn" onclick="refreshActivatePage()">🔄 刷新</button>
+                </div>
+                <div class="result" id="activateResult"></div>
+                <div class="tips">提示：激活码联系客服获取</div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 7. 我的订单页面（新增刷新按钮） -->
+        <div id="my-orders" class="page">
+            <div class="order-container">
+                <div class="order-header">
+                    <h2>我的订单</h2>
+                    <p>仅显示已支付的订单记录</p>
+                </div>
+                <div class="order-search">
+                    <input type="text" id="searchInput" placeholder="订单编号或服务名称">
+                    <button class="btn-unified btn-primary" onclick="searchOrder()">查询</button>
+                    <button class="btn-unified btn-secondary refresh-btn" onclick="refreshOrderPage()">🔄 刷新</button>
+                </div>
+                <div id="searchResultTip" class=""></div>
+                <div class="order-list" id="orderList">
+                    <div class="empty-tip">暂无已支付订单<br>请前往首页选择服务并完成支付</div>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 8. 关于我们页面（年份改为2025） -->
+        <div id="about" class="page">
+            <div class="about-content">
+                <div class="about-header">
+                    <h2>关于湖癔科技</h2>
+                    <p>技术驱动创新，服务创造价值</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>企业简介</h3>
+                    <p>湖癔科技成立于2025年，是一家专注于系统优化、定制化软件开发与企业技术服务的创新型科技公司。我们致力于为个人用户和企业客户提供高效、稳定、安全的技术解决方案，凭借扎实的技术实力和优质的服务体验，已累计服务超过5000+用户，涵盖个人桌面美化、系统运维、企业级系统部署等多个领域。</p>
+                    <p>自成立以来，我们始终坚持以用户需求为核心，不断迭代服务内容，优化服务流程。无论是个人用户的桌面美化需求，还是企业客户的定制化开发、年度运维需求，我们都能提供一对一专属解决方案，确保每一位客户都能获得超出预期的服务体验。</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>核心业务</h3>
+                    <ul>
+                        <li>个人服务：系统美化、性能优化、垃圾清理、开机加速、主题定制等；</li>
+                        <li>企业服务：基础系统部署、员工电脑调试、办公软件安装、定制化软件开发；</li>
+                        <li>运维服务：企业年度运维、漏洞扫描、数据备份、7×24小时技术支持；</li>
+                        <li>其他服务：远程技术支持、系统故障排查、软件兼容性优化等。</li>
+                    </ul>
+                </div>
+                
+                <div class="about-section">
+                    <h3>企业理念</h3>
+                    <p><strong>专业：</strong>汇聚行业资深技术专家，平均从业经验8年以上，具备扎实的技术功底和丰富的项目实践经验，能够快速解决各类技术难题；</p>
+                    <p><strong>高效：</strong>建立标准化服务流程，个人用户咨询响应时间不超过30分钟，企业客户需求对接不超过2小时，紧急问题优先处理；</p>
+                    <p><strong>可靠：</strong>所有服务均提供售后保障，个人服务7天内免费微调，企业服务提供1年免费维护，让客户无后顾之忧；</p>
+                    <p><strong>创新：</strong>紧跟技术发展趋势，不断引入新技术、新方案，持续优化服务质量，为客户提供更具竞争力的解决方案。</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>核心团队</h3>
+                    <div class="about-team">
+                        <div class="team-list">
+                            <div class="team-item">
+                                <h4>技术总监 - 张先生</h4>
+                                <p>12年系统开发与架构设计经验，曾主导多个企业级项目开发，擅长系统优化与故障排查；</p>
+                            </div>
+                            <div class="team-item">
+                                <h4>运维工程师 - 李女士</h4>
+                                <p>9年企业运维经验，精通Windows、Linux系统运维，擅长漏洞扫描与数据备份方案设计；</p>
+                            </div>
+                            <div class="team-item">
+                                <h4>产品经理 - 王先生</h4>
+                                <p>6年服务产品规划经验，深入理解用户需求，主导多个服务产品迭代优化；</p>
+                            </div>
+                            <div class="team-item">
+                                <h4>客服主管 - 赵女士</h4>
+                                <p>8年客户服务经验，擅长需求对接与问题协调，确保客户服务体验全程流畅。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-section">
+                    <h3>企业愿景</h3>
+                    <p>成为国内领先的技术服务提供商，以技术为基石，以服务为纽带，为更多个人用户和企业客户创造价值。我们始终相信，只有坚持以客户为中心，不断提升服务质量和技术实力，才能在激烈的市场竞争中立足，实现企业与客户的共赢发展。</p>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+        <!-- 9. 联系我们页面 -->
+        <div id="contact" class="page">
+            <div class="contact-container">
+                <div class="contact-card">
+                    <div class="icon">💬</div>
+                    <div class="info">
+                        <h3>湖癔</h3>
+                        <p>QQ：<span>3576607747</span></p>
+                        <p>工作时间：9:00-22:00（工作日）</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="icon">💬</div>
+                    <div class="info">
+                        <h3>彼得帕克</h3>
+                        <p>QQ：<span>3305362657</span></p>
+                        <p>工作时间：9:00-22:00（工作日）</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">© 2026 湖癔科技 版权所有</div>
+        </div>
+    </div>
+    
+    <!-- 确认弹窗 -->
+    <div class="modal-mask" id="payModal">
+        <div class="modal-box">
+            <h3 class="modal-title">确认购买</h3>
+            <p id="modalServiceName">系统美化日卡</p>
+            <div class="modal-price">¥ 19.9</div>
+            <div class="modal-btn-group">
+                <button class="btn-unified btn-secondary" onclick="closeModal()">取消</button>
+                <button class="btn-unified btn-primary" onclick="goToPayPage()">前往付款</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-mask" id="deleteModal">
+        <div class="modal-box">
+            <h3 class="modal-title">确认删除订单</h3>
+            <p class="modal-desc">确定要删除该订单吗？删除后不可恢复！</p>
+            <input type="hidden" id="deleteOrderId">
+            <div class="modal-btn-group">
+                <button class="btn-unified btn-secondary" onclick="closeDeleteModal()">取消</button>
+                <button class="btn-unified btn-danger" onclick="confirmDelete()">确认删除</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-mask" id="unpaidModal">
+        <div class="modal-box">
+            <h3 class="modal-title">未完成支付提示</h3>
+            <p class="modal-desc">您已选择未完成支付，订单将自动取消</p>
+            <div class="modal-btn-group">
+                <button class="btn-unified btn-primary" onclick="goToProductPage()">确认（返回商品页）</button>
+                <button class="btn-unified btn-secondary" onclick="closeUnpaidModalAndGoHome()">返回主页</button>
+            </div>
+        </div>
+    </div>
+    <!-- 核心JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // 粒子背景（兼容本地加载，失败则不显示）
+        try {
+            particlesJS("particles-js", {
+                particles: {
+                    number: {value: 40, density: {enable: true, value_area: 600}},
+                    color: {value: "#64ffda"},
+                    shape: {type: "circle"},
+                    size: {value: 2},
+                    move: {enable: true, speed: 1}
+                },
+                interactivity: {events: {onhover: {enable: true, mode: "grab"}}}
+            });
+        } catch (e) {
+            console.log("粒子背景加载失败，不影响核心功能");
+        }
+        
+        // 全局变量（改用内存存储，避免localStorage跨域限制）
+        let currentService = {name: '', price: 0, orderId: ''};
+        const validActivationCodes = [
+            "HY25K3P8X2Z7Q9R4", "HY25M7N2B9C4D8E3", "HY25P9Q3F7G2H6J5", "HY25R2S8D4E9F3K7", "HY25T5U7G3H8J2L9",
+            "HY25V8W3J6K9L4M7", "HY25X2Y9K4L7M3N8", "HY25Z5A3L7M9N4P2", "HY25B8C7M9N3P6Q4", "HY25D2E3N4P8Q7R9"
+        ];
+        let usedActivationCodes = [];
+        let paidOrders = []; // 内存存储订单，不依赖localStorage
+        
+        // ---------------------- 核心功能函数 ----------------------
+        window.showPage = function(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+            if (pageId === 'personal-payment' || pageId === 'enterprise-payment' || pageId === 'service-activate') {
+                setTimeout(() => targetPage.classList.add('animate-in'), 50);
+            }
+            window.scrollTo(0, 0);
+            if (pageId === 'my-orders') renderOrders();
+        }
+        
+        window.openModal = function(serviceName, price) {
+            const orderId = Date.now().toString().slice(-6);
+            currentService = {name: serviceName, price: price, orderId: orderId};
+            document.getElementById('modalServiceName').textContent = serviceName;
+            document.querySelector('#payModal .modal-price').textContent = `¥ ${price}`;
+            document.getElementById('payModal').style.display = 'flex';
+            document.getElementById('serviceName').textContent = serviceName;
+            document.getElementById('orderNumber').textContent = orderId;
+            document.getElementById('servicePrice').textContent = `¥ ${price}`;
+        }
+        
+        window.closeModal = function() {
+            document.getElementById('payModal').style.display = 'none';
+        }
+        
+        window.goToPayPage = function() {
+            closeModal();
+            closeUnpaidModal();
+            setTimeout(() => showPage('payment-page'), 300);
+        }
+        
+        window.switchPay = function(el, type) {
+            const tabs = document.querySelectorAll('.method-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            el.classList.add('active');
+            const qrcodeImg = document.querySelector('#qrcodeContainer img');
+            qrcodeImg.src = type === 'wechat' 
+                ? 'https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEN_kZpShl5zTElP52AkZ1a5ExJh2eQOQAC_hoAAig5UFa3FgzakunFATYE.png'
+                : 'https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAEN_kdpShl65SdwSOYDcY-wwDlC2PdWvwAC_xoAAig5UFYlecNGnCHJGDYE.jpg';
+        }
+        
+        window.confirmPayment = function() {
+            const {name, price, orderId} = currentService;
+            if (!orderId) { alert('未获取到订单信息，请重新下单'); return; }
+            addPaidOrder(orderId, name, price);
+            document.getElementById('successServiceName').textContent = name;
+            document.getElementById('successOrderId').textContent = orderId;
+            document.getElementById('successServicePrice').textContent = `¥ ${price}`;
+            showPage('payment-success');
+        }
+        
+        window.openUnpaidModal = function() {
+            document.getElementById('unpaidModal').style.display = 'flex';
+        }
+        
+        window.closeUnpaidModal = function() {
+            document.getElementById('unpaidModal').style.display = 'none';
+        }
+        
+        window.closeUnpaidModalAndGoHome = function() {
+            closeUnpaidModal();
+            showPage('home');
+        }
+        
+        window.goToProductPage = function() {
+            closeUnpaidModal();
+            const serviceName = currentService.name || '';
+            showPage(serviceName.includes('企业') ? 'enterprise-payment' : 'personal-payment');
+        }
+        
+        // ---------------------- 兼容修复核心 ----------------------
+        // 1. 激活校验（改用内存订单数据）
+        window.checkActivate = function() {
+            const orderId = document.getElementById('activateOrderId').value.trim();
+            const activateCode = document.getElementById('activateCodeInput').value.trim();
+            const result = document.getElementById('activateResult');
+            result.style.display = 'block';
+            
+            // 基础校验
+            if (!orderId || !activateCode) { 
+                result.className = "result error"; 
+                result.textContent = "❌ 订单编号和激活码不能为空！"; 
+                return; 
+            }
+            if (orderId.length !== 6) {
+                result.className = "result error"; 
+                result.textContent = "❌ 订单编号必须是6位数字！";
+                return;
+            }
+            if (activateCode.length !== 16) {
+                result.className = "result error"; 
+                result.textContent = "❌ 激活码必须是16位！";
+                return;
+            }
+            if (!validActivationCodes.includes(activateCode)) {
+                result.className = "result error"; 
+                result.textContent = "❌ 激活码无效！请联系客服获取";
+                return;
+            }
+            
+            // 关键校验：订单是否存在（内存中查询）
+            const orderExists = paidOrders.some(o => o.id === orderId);
+            if (!orderExists) {
+                result.className = "result error"; 
+                result.textContent = "❌ 订单不存在或已删除，无法激活！";
+                return;
+            }
+            
+            // 激活成功
+            result.className = "result success"; 
+            result.textContent = "✅ 激活成功！服务已开通，可联系客服对接";
+            
+            // 同步订单状态（内存中更新）
+            const orderIndex = paidOrders.findIndex(o => o.id === orderId);
+            if (orderIndex > -1) {
+                paidOrders[orderIndex].status = '已激活';
+                renderOrders();
+            }
+        }
+        
+        // 2. 订单页面刷新功能
+        window.refreshOrderPage = function() {
+            document.getElementById('searchInput').value = ''; // 清空输入框
+            document.getElementById('searchResultTip').innerHTML = ''; // 清空提示
+            renderOrders(); // 重新渲染订单列表
+        }
+        
+        // 3. 激活页面刷新功能
+        window.refreshActivatePage = function() {
+            document.getElementById('activateOrderId').value = ''; // 清空输入
+            document.getElementById('activateCodeInput').value = '';
+            document.getElementById('activateResult').style.display = 'none'; // 隐藏结果提示
+        }
+        
+        // 4. 订单渲染（内存数据渲染）
+        window.renderOrders = function(orders = null) {
+            const orderList = document.getElementById('orderList');
+            const data = orders || paidOrders; // 直接使用内存订单数据
+            data.sort((a, b) => new Date(b.time) - new Date(a.time));
+            
+            if (data.length === 0) {
+                orderList.innerHTML = '<div class="empty-tip">暂无已支付订单<br>请前往首页选择服务并完成支付</div>';
+                return;
+            }
+            
+            let html = '';
+            data.forEach((order, index) => {
+                const statusText = order.status === '已激活' 
+                    ? '已支付+已激活' 
+                    : '已支付+未激活';
+                const statusClass = order.status === '已激活' 
+                    ? 'status-activated' 
+                    : 'status-unactivated';
+                
+                html += `
+                <div class="order-item" style="animation-delay: ${index * 0.1}s">
+                    <div class="order-top">
+                        <div class="order-name">${order.name}</div>
+                        <div class="order-status ${statusClass}">${statusText}</div>
+                    </div>
+                    <div class="order-middle">
+                        <p>订单编号：<span>${order.id}</span></p>
+                        <p>金额：<span>¥ ${order.price}</span></p>
+                        <p>创建时间：<span>${order.time}</span></p>
+                    </div>
+                    <div class="order-bottom">
+                        <button class="btn-unified btn-danger" onclick="openDeleteModal('${order.id}')">🗑️ 删除订单</button>
+                        <button class="btn-unified btn-secondary" onclick="showPage('service-activate')">${order.status === '已激活' ? '查看激活状态' : '去激活'}</button>
+                    </div>
+                </div>
+                `;
+            });
+            orderList.innerHTML = html;
+        }
+        
+        // 5. 订单查询（内存中过滤）
+        window.searchOrder = function() {
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+            const searchTip = document.getElementById('searchResultTip');
+            searchTip.innerHTML = '';
+            
+            if (!keyword) {
+                searchTip.innerHTML = '<div class="search-empty">❌ 未查询到订单<br>请输入订单编号或服务名称</div>';
+                document.getElementById('orderList').innerHTML = '<div class="empty-tip">暂无已支付订单<br>请前往首页选择服务并完成支付</div>';
+                return;
+            }
+            
+            const filtered = paidOrders.filter(o => o.id.includes(keyword) || o.name.toLowerCase().includes(keyword));
+            
+            if (filtered.length === 0) {
+                searchTip.innerHTML = '<div class="search-empty">❌ 未找到匹配订单</div>';
+                document.getElementById('orderList').innerHTML = '<div class="empty-tip">暂无匹配订单记录</div>';
+            } else {
+                searchTip.innerHTML = `<div class="search-success">✅ 找到 ${filtered.length} 条匹配订单</div>`;
+                renderOrders(filtered);
+            }
+        }
+        
+        // 其他辅助函数
+        window.openDeleteModal = function(orderId) {
+            document.getElementById('deleteOrderId').value = orderId;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+        
+        window.closeDeleteModal = function() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+        
+        window.confirmDelete = function() {
+            const orderId = document.getElementById('deleteOrderId').value;
+            paidOrders = paidOrders.filter(order => order.id !== orderId); // 内存中删除订单
+            closeDeleteModal();
+            refreshOrderPage(); // 删除后自动刷新订单列表
+            alert('✅ 订单删除成功！');
+        }
+        
+        window.addPaidOrder = function(orderId, serviceName, price) {
+            // 内存中添加订单，不依赖localStorage
+            if (!paidOrders.some(o => o.id === orderId)) {
+                paidOrders.push({
+                    id: orderId, name: serviceName, price: price,
+                    time: new Date().toLocaleString('zh-CN'), status: '未激活'
+                });
+            }
+            renderOrders();
+        }
+        
+        // 初始化：确保所有按钮事件绑定完成
+        window.onload = function() {
+            renderOrders();
+            // 显式绑定弹窗元素，避免未定义错误
+            window.payModal = document.getElementById('payModal');
+            window.deleteModal = document.getElementById('deleteModal');
+            window.unpaidModal = document.getElementById('unpaidModal');
+        }
+    </script>
+</body>
+</html>

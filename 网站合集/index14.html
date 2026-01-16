@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湖癔科技 - 调研问卷</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            padding: 15px;
+            min-width: 320px;
+        }
+        .container {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            @media (min-width: 576px) {
+                padding: 30px 25px;
+            }
+            @media (min-width: 768px) {
+                padding: 40px;
+            }
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #6c63ff;
+            @media (min-width: 576px) {
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+            @media (min-width: 768px) {
+                margin-bottom: 35px;
+            }
+        }
+        .header h1 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 8px;
+            @media (min-width: 576px) {
+                font-size: 22px;
+            }
+            @media (min-width: 768px) {
+                font-size: 26px;
+                margin-bottom: 10px;
+            }
+        }
+        .header p {
+            color: #666;
+            font-size: 13px;
+            @media (min-width: 576px) {
+                font-size: 14px;
+            }
+            @media (min-width: 768px) {
+                font-size: 15px;
+            }
+        }
+        .form-group {
+            margin-bottom: 20px;
+            @media (min-width: 576px) {
+                margin-bottom: 25px;
+            }
+            @media (min-width: 768px) {
+                margin-bottom: 28px;
+            }
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 15px;
+            @media (min-width: 768px) {
+                font-size: 17px;
+                margin-bottom: 12px;
+            }
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: all 0.3s;
+            @media (min-width: 768px) {
+                padding: 14px 18px;
+                font-size: 15px;
+            }
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+            @media (min-width: 768px) {
+                gap: 12px;
+            }
+        }
+        .radio-item {
+            flex: 1 1 100%;
+            @media (min-width: 576px) {
+                flex: 1 1 calc(50% - 5px);
+            }
+            @media (min-width: 768px) {
+                flex: 1 1 calc(25% - 9px);
+                min-width: 120px;
+            }
+        }
+        .radio-item input {
+            display: none;
+        }
+        .radio-item label {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            color: #333;
+            font-weight: normal;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0;
+            font-size: 14px;
+            @media (min-width: 768px) {
+                padding: 14px 0;
+                font-size: 15px;
+            }
+        }
+        .radio-item input:checked + label {
+            background-color: #6c63ff;
+            color: #fff;
+            border-color: #6c63ff;
+        }
+        .radio-item label:hover {
+            border-color: #6c63ff;
+            color: #6c63ff;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #333;
+            min-height: 100px;
+            resize: vertical;
+            outline: none;
+            transition: all 0.3s;
+            @media (min-width: 768px) {
+                padding: 16px 18px;
+                min-height: 120px;
+                font-size: 15px;
+            }
+        }
+        textarea:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            @media (min-width: 768px) {
+                padding: 16px;
+                font-size: 18px;
+            }
+        }
+        button:hover {
+            background-color: #5a54e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .privacy-tip {
+            text-align: center;
+            color: #ff3333;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 12px;
+            padding: 8px;
+            background-color: #fef6f6;
+            border-radius: 8px;
+            @media (min-width: 768px) {
+                font-size: 14px;
+                margin-top: 15px;
+                padding: 10px;
+            }
+        }
+        .footer {
+            text-align: center;
+            margin-top: 12px;
+            color: #999;
+            font-size: 12px;
+            @media (min-width: 768px) {
+                margin-top: 15px;
+                font-size: 13px;
+            }
+        }
+        #result {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .success {
+            color: #27ae60;
+        }
+        .error {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>湖癔科技 调研问卷</h1>
+            <p>感谢您的参与，您的反馈对我们至关重要</p>
+        </div>
+        <form id="surveyForm" action="http://101.126.92.71/submit-all.php" method="post">
+            <input type="hidden" name="form_type" value="survey">
+            <div class="form-group">
+                <label>怎么称呼您（选填，方便后续反馈）</label>
+                <input type="text" name="userID" placeholder="如昵称、网名等，不填也可">
+            </div>
+            <div class="form-group">
+                <label>您的邮箱（选填，用于接收提交确认）</label>
+                <input type="email" name="user_email" placeholder="填写后将收到提交成功确认邮件">
+            </div>
+            <div class="form-group">
+                <label>1. 您与本次调研对象的关系属于哪一类？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="relation" id="rel1" value="朋友" required>
+                        <label for="rel1">朋友</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="relation" id="rel2" value="同事/合作伙伴">
+                        <label for="rel2">同事/合作伙伴</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="relation" id="rel3" value="关注者">
+                        <label for="rel3">关注者</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="relation" id="rel4" value="其他">
+                        <label for="rel4">其他</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>2. 您通过什么渠道首次了解到本次调研对象？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="channel" id="chan1" value="朋友介绍" required>
+                        <label for="chan1">朋友介绍</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="channel" id="chan2" value="网络平台">
+                        <label for="chan2">网络平台</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="channel" id="chan3" value="线下活动">
+                        <label for="chan3">线下活动</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="channel" id="chan4" value="其他渠道">
+                        <label for="chan4">其他渠道</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>3. 您关注本次调研对象的时长大概是多久？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="time" id="time1" value="1个月以内" required>
+                        <label for="time1">1个月以内</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="time" id="time2" value="1-6个月">
+                        <label for="time2">1-6个月</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="time" id="time3" value="6-12个月">
+                        <label for="time3">6-12个月</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="time" id="time4" value="1年以上">
+                        <label for="time4">1年以上</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>4. 若用一个关键词概括对方给您的核心印象，您会选什么？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="impression" id="imp1" value="靠谱" required>
+                        <label for="imp1">靠谱</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="impression" id="imp2" value="热情">
+                        <label for="imp2">热情</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="impression" id="imp3" value="沉稳">
+                        <label for="imp3">沉稳</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="impression" id="imp4" value="有趣">
+                        <label for="imp4">有趣</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="impression" id="imp5" value="其他">
+                        <label for="imp5">其他</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>5. 您与对方是否有过实际聊天互动经历？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="chat" id="chat1" value="经常聊天" required>
+                        <label for="chat1">经常聊天</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="chat" id="chat2" value="偶尔聊天">
+                        <label for="chat2">偶尔聊天</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="chat" id="chat3" value="从未聊天">
+                        <label for="chat3">从未聊天</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>6. 对方的回复效率让您感到？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="reply" id="rep1" value="非常及时" required>
+                        <label for="rep1">非常及时</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="reply" id="rep2" value="比较及时">
+                        <label for="rep2">比较及时</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="reply" id="rep3" value="一般">
+                        <label for="rep3">一般</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="reply" id="rep4" value="不及时">
+                        <label for="rep4">不及时</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>7. 对方倾听您说话的耐心程度如何？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="listen" id="lis1" value="非常耐心" required>
+                        <label for="lis1">非常耐心</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="listen" id="lis2" value="比较耐心">
+                        <label for="lis2">比较耐心</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="listen" id="lis3" value="一般">
+                        <label for="lis3">一般</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="listen" id="lis4" value="缺乏耐心">
+                        <label for="lis4">缺乏耐心</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>8. 与对方沟通的整体体验可以打几分？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="experience" id="exp1" value="5分（极佳）" required>
+                        <label for="exp1">5分（极佳）</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="experience" id="exp2" value="4分（很好）">
+                        <label for="exp2">4分（很好）</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="experience" id="exp3" value="3分（一般）">
+                        <label for="exp3">3分（一般）</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="experience" id="exp4" value="2分及以下（较差）">
+                        <label for="exp4">2分及以下（较差）</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>9. 您觉得对方的性格更偏向于？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="personality" id="per1" value="外向开朗" required>
+                        <label for="per1">外向开朗</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="personality" id="per2" value="内向沉稳">
+                        <label for="per2">内向沉稳</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="personality" id="per3" value="中性（看情况）">
+                        <label for="per3">中性（看情况）</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>10. 对方在处理事情时的靠谱程度？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="attitude" id="att1" value="非常靠谱" required>
+                        <label for="att1">非常靠谱</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="attitude" id="att2" value="比较靠谱">
+                        <label for="att2">比较靠谱</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="attitude" id="att3" value="一般">
+                        <label for="att3">一般</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="attitude" id="att4" value="不太靠谱">
+                        <label for="att4">不太靠谱</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>11. 对方是否容易忽略他人的感受？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="ignore" id="ign1" value="从不忽略" required>
+                        <label for="ign1">从不忽略</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="ignore" id="ign2" value="偶尔忽略">
+                        <label for="ign2">偶尔忽略</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="ignore" id="ign3" value="经常忽略">
+                        <label for="ign3">经常忽略</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>12. 对方的生活风格更偏向于？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="style" id="sty1" value="规律自律" required>
+                        <label for="sty1">规律自律</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="style" id="sty2" value="随性自由">
+                        <label for="sty2">随性自由</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="style" id="sty3" value="忙碌充实">
+                        <label for="sty3">忙碌充实</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="style" id="sty4" value="佛系躺平">
+                        <label for="sty4">佛系躺平</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>13. 您觉得对方的关系亲近度变化趋势是？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="closeness" id="clo1" value="越来越近" required>
+                        <label for="clo1">越来越近</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="closeness" id="clo2" value="保持稳定">
+                        <label for="clo2">保持稳定</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="closeness" id="clo3" value="越来越远">
+                        <label for="clo3">越来越远</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>14. 对方的人际关系优化方向建议是？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="optimize" id="opt1" value="多主动联系" required>
+                        <label for="opt1">多主动联系</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="optimize" id="opt2" value="多倾听少发言">
+                        <label for="opt2">多倾听少发言</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="optimize" id="opt3" value="保持现状即可">
+                        <label for="opt3">保持现状即可</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>15. 对方是否重视他人的建议？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="value" id="val1" value="非常重视" required>
+                        <label for="val1">非常重视</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="value" id="val2" value="比较重视">
+                        <label for="val2">比较重视</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="value" id="val3" value="不太重视">
+                        <label for="val3">不太重视</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="value" id="val4" value="完全不重视">
+                        <label for="val4">完全不重视</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>16. 您是否愿意与对方成为更深层次的朋友？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="willing" id="wil1" value="非常愿意" required>
+                        <label for="wil1">非常愿意</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="willing" id="wil2" value="愿意">
+                        <label for="wil2">愿意</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="willing" id="wil3" value="不确定">
+                        <label for="wil3">不确定</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="willing" id="wil4" value="不愿意">
+                        <label for="wil4">不愿意</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>17. 对方平衡生活与工作的改进方向？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="balance" id="bal1" value="多休息少熬夜" required>
+                        <label for="bal1">多休息少熬夜</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="balance" id="bal2" value="多社交少独处">
+                        <label for="bal2">多社交少独处</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="balance" id="bal3" value="保持现状即可">
+                        <label for="bal3">保持现状即可</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>18. 您对对方的生活状态有什么建议？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="lifeAdvice" id="lif1" value="多运动健身" required>
+                        <label for="lif1">多运动健身</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="lifeAdvice" id="lif2" value="多读书学习">
+                        <label for="lif2">多读书学习</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="lifeAdvice" id="lif3" value="多出门游玩">
+                        <label for="lif3">多出门游玩</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="lifeAdvice" id="lif4" value="其他建议">
+                        <label for="lif4">其他建议</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>19. 您希望对方增加哪些聊天话题？</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="topic" id="top1" value="技术/编程" required>
+                        <label for="top1">技术/编程</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="topic" id="top2" value="生活/日常">
+                        <label for="top2">生活/日常</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="topic" id="top3" value="游戏/娱乐">
+                        <label for="top3">游戏/娱乐</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="topic" id="top4" value="其他话题">
+                        <label for="top4">其他话题</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>20. 您还有什么其他补充建议？（选填）</label>
+                <textarea name="other" placeholder="欢迎提出您的宝贵建议..."></textarea>
+            </div>
+            <button type="submit">提交问卷</button>
+            <div id="result"></div>
+        </form>
+        <div class="privacy-tip">
+            隐私提示：您的回答仅用于调研分析，我们会严格保护您的个人信息
+        </div>
+        <div class="footer">
+            © 2026 湖癔科技（HUYITECHNOLOGY）版权所有
+        </div>
+    </div>
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const resultDiv = document.getElementById('result');
+            const submitBtn = this.querySelector('button');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "提交中...";
+            resultDiv.innerText = "";
+            resultDiv.className = "";
+
+            fetch('http://101.126.92.71/submit-all.php', {
+                method: 'POST',
+                body: formData,
+                mode: 'cors'
+            }).then(res => res.text()).then(data => {
+                if (data.includes("成功")) {
+                    resultDiv.className = "success";
+                } else {
+                    resultDiv.className = "error";
+                }
+                resultDiv.innerText = data;
+                submitBtn.disabled = false;
+                submitBtn.textContent = "提交问卷";
+                setTimeout(() => {
+                    resultDiv.innerText = "";
+                }, 3000);
+            }).catch(error => {
+                resultDiv.className = "error";
+                resultDiv.innerText = "提交失败，请检查网络！";
+                submitBtn.disabled = false;
+                submitBtn.textContent = "提交问卷";
+            });
+        });
+    </script>
+</body>
+</html>
