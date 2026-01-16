@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>湖癔科技 | 烬余 无归</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --sad-black: #0A0A0A;
+            --sad-dark: #121212;
+            --sad-red: #9D2933;
+            --sad-red-light: #C73E4A;
+            --sad-red-dark: #7A1F28;
+            --text-gray: #B0B0B0;
+            --text-light: #E0E0E0;
+            --border-gray: #222222;
+            --glow-color: rgba(157, 41, 51, 0.3);
+        }
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        body {
+            color: var(--text-gray);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            background-color: var(--sad-black);
+            overflow-x: hidden;
+            position: relative;
+            cursor: default;
+            padding-top: 120px;
+            width: 100%;
+        }
+        a {
+            text-decoration: none;
+            color: var(--text-gray);
+        }
+        ul {
+            list-style: none;
+        }
+        img, video {
+            max-width: 100%;
+            height: auto;
+        }
+        /* 滚动公告 */
+        .warm-tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--sad-red-dark);
+            color: var(--text-light);
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            font-weight: 500;
+        }
+        .warm-tips-content {
+            display: inline-block;
+            animation: scroll 185s linear 0s infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            97.3% { transform: translateX(-100%); }
+            100% { transform: translateX(-100%); }
+        }
+        /* 顶部banner */
+        .newyear-banner {
+            background: linear-gradient(135deg, var(--sad-red-dark), var(--sad-black));
+            color: var(--text-light);
+            text-align: center;
+            padding: 0.8rem 0;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            position: fixed;
+            top: 32px;
+            width: 100%;
+            z-index: 999;
+        }
+        /* 导航栏 */
+        .navbar {
+            background-color: var(--sad-dark);
+            padding: 1rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 76px;
+            width: 100%;
+            z-index: 998;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            border-bottom: 1px solid var(--sad-red-dark);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .logo-main {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--sad-red);
+        }
+        .logo-divider {
+            width: 2px;
+            height: 24px;
+            background-color: var(--sad-red);
+        }
+        .logo-en {
+            font-size: 0.95rem;
+            color: var(--sad-red-light);
+            letter-spacing: 1px;
+            font-weight: 900;
+            text-shadow: 0 0 1px rgba(199, 62, 74, 0.5););
+        }
+        .nav-btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+        .btn {
+            background: var(--sad-red);
+            color: var(--text-light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn:hover {
+            background: var(--sad-red-light);
+        }
+        /* 音乐控制 */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 0.8rem;
+            z-index: 997;
+        }
+        .music-btn {
+            width: 40px;
+            height: 40px;
+            background-color: var(--sad-red-dark);
+            color: var(--text-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            border: none;
+            font-size: 1rem;
+        }
+        .music-btn:hover {
+            background-color: var(--sad-red);
+            color: #fff;
+        }
+        /* 首页核心区 */
+        .hero {
+            height: calc(100vh - 120px);
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(18, 18, 18, 0.8)), url("https://user0890.cn.imgto.link/public/20260108/1000022987.avif") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4%;
+            margin: 0 auto;
+            color: var(--text-light);
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--sad-red-light);
+            text-shadow: 0 0 15px rgba(199, 62, 74, 0.3);
+            font-weight: 300;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 80%;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        .hero-btn-group {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        /* 通用区块样式 */
+        .section {
+            padding: 3rem 4%;
+            background: var(--sad-dark);
+            margin: 2rem auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-gray);
+            width: 95%;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--sad-red);
+            margin-bottom: 2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--sad-red-dark);
+            text-align: center;
+        }
+        /* 卡片样式 */
+        .memo-card {
+            background: var(--sad-black);
+            padding: 2rem;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid var(--sad-red);
+        }
+        .memo-card-header {
+            font-weight: bold;
+            color: var(--sad-red-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+        .memo-card-body {
+            position: relative;
+            z-index: 1;
+        }
+        .memo-card-body p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            line-height: 2;
+            text-indent: 2em;
+        }
+        /* 音乐歌词板块样式 */
+        .music-lyrics {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .song-item {
+            background: var(--sad-black);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--sad-red);
+            transition: all 0.3s ease;
+        }
+        .song-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--sad-red-light);
+        }
+        .song-title {
+            font-size: 1.2rem;
+            color: var(--sad-red-light);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .song-singer {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 1.2rem;
+            font-style: italic;
+        }
+        .lyric-line {
+            margin-bottom: 0.8rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(157, 41, 51, 0.1);
+        }
+        .highlight-lyric {
+            color: var(--sad-red);
+            font-weight: bold;
+            display: block;
+            margin: 1rem 0;
+            padding: 0.8rem;
+            background: rgba(157, 41, 51, 0.1);
+            border-radius: 4px;
+        }
+        /* 视频模块 */
+        .video-section {
+            background: var(--sad-black);
+            padding: 2rem;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 3px solid var(--sad-red-light);
+        }
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 560px;
+            margin: 0 auto 2rem;
+            background: var(--sad-dark);
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            outline: none;
+        }
+        .video-warm-text {
+            color: var(--text-gray);
+            line-height: 2;
+            font-size: 1.05rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-indent: 2em;
+            text-align: left;
+        }
+        /* 底部 */
+        .footer {
+            background: var(--sad-black);
+            color: #666;
+            padding: 3rem 4%;
+            margin-top: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--sad-red-dark);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--sad-red);
+            margin-bottom: 1.5rem;
+        }
+        .footer-desc {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+        }
+        .footer-copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        /* 返回顶部 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--sad-red);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            z-index: 997;
+            font-size: 1.3rem;
+        }
+        .back-to-top:hover {
+            background-color: var(--sad-red-light);
+        }
+        /* 联系我们 */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        /* 电脑端（默认，≥1024px）无需额外样式，已在基础样式中定义 */
+
+        /* 平板端（768px-1023px） */
+        @media (max-width: 1023px) and (min-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .video-container {
+                height: 400px;
+            }
+            .memo-card {
+                padding: 1.8rem;
+            }
+            .song-item {
+                padding: 1.2rem;
+            }
+            .footer-logo {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* 手机端（≤767px） */
+        @media (max-width: 767px) {
+            html {
+                font-size: 15px;
+            }
+            body {
+                padding-top: 110px;
+            }
+            .hero {
+                height: calc(100vh - 110px);
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+                max-width: 95%;
+            }
+            .hero-btn-group {
+                flex-direction: column;
+                width: 90%;
+                gap: 0.8rem;
+            }
+            .btn {
+                width: 100%;
+                padding: 0.8rem 0;
+            }
+            .video-container {
+                height: 280px;
+            }
+            .memo-card {
+                padding: 1.5rem;
+            }
+            .memo-card-body p {
+                font-size: 1rem;
+                line-height: 1.9;
+                text-indent: 1.5em;
+            }
+            .section {
+                padding: 2rem 3%;
+                margin: 1.5rem auto;
+            }
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.6rem;
+            }
+            .nav-btn-group {
+                gap: 0.8rem;
+            }
+            .logo-main {
+                font-size: 1.2rem;
+            }
+            .logo-en {
+                font-size: 0.85rem;
+            }
+            .video-warm-text {
+                font-size: 1rem;
+                text-indent: 1.5em;
+            }
+            .footer-logo {
+                font-size: 1.3rem;
+            }
+            .footer-desc {
+                font-size: 0.95rem;
+            }
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .music-btn {
+                width: 38px;
+                height: 38px;
+            }
+        }
+
+
+
+        /* 小屏手机（≤375px） */
+        @media (max-width: 375px) {
+            html {
+                font-size: 14px;
+            }
+            body {
+                padding-top: 100px;
+            }
+            .hero {
+                height: calc(100vh - 100px);
+            }
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            .video-container {
+                height: 220px;
+            }
+            .memo-card {
+                padding: 1.2rem;
+            }
+            .memo-card-header {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            .memo-card-body p {
+                margin-bottom: 1rem;
+                line-height: 1.8;
+            }
+            .song-item {
+                padding: 1rem;
+            }
+            .song-title {
+                font-size: 1.1rem;
+            }
+            .highlight-lyric {
+                padding: 0.6rem;
+                margin: 0.8rem 0;
+            }
+            .navbar {
+                padding: 0.8rem 3%;
+            }
+            .logo {
+                gap: 0.5rem;
+            }
+            .newyear-banner {
+                padding: 0.7rem 0;
+                font-size: 0.9rem;
+            }
+            .warm-tips {
+                padding: 0.3rem 0;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <audio id="background-music" preload="auto">
+        <source id="audio-source" src="https://image2url.com/r2/bucket1/audio/1766569255522-ff7cf92b-e378-438b-8605-03f25b2658e2.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+    <div class="warm-tips" id="sentence-section">
+        <div class="warm-tips-content">
+            真心换假意 深情被辜负 | 感情这东西 终究是一场骗局 | 掏心掏肺 最后遍体鳞伤 | 所谓承诺 不过是一时兴起 | 认真的人 永远输得最惨 | 深情喂了狗 真心换不来真心 | 别再相信 什么海誓山盟 | 被感情玩烂了 也就麻木了 | 真心错付 只剩一身狼狈 | 感情这游戏 我玩不起 也输不起
+        </div>
+    </div>
+    <div class="newyear-banner">
+        湖癔科技 | 烬余 无归 所有相遇 终有别离
+    </div>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <div class="logo-main">湖癔科技</div>
+            <div class="logo-divider"></div>
+            <div class="logo-en">HUYITECHNOLOGY</div>
+        </div>
+        <div class="nav-btn-group">
+           <a href="#section1" class="btn">真心错付</a>
+           <a href="#music-lyric-section" class="btn">音乐歌词</a>
+        </div>
+    </nav>
+    <section class="hero" id="home">
+        <h1 class="hero-title">我掏心掏肺的爱</h1>
+        <p class="hero-subtitle">终究成了别人的笑话<br>你随口的承诺 我当了真<br>最后 只剩我一个人 守着回忆 不肯走</p>
+        <div class="hero-btn-group">
+            <a href="#video-section" class="btn">观看文案视频</a>
+            <a href="#section1" class="btn">走进泪痕世界</a>
+        </div>
+    </section>
+    <!-- 视频模块 -->
+    <section class="section" id="video-section">
+        <h2 class="section-title">文案实录</h2>
+        <div class="video-section">
+            <div class="video-container">
+                <video id="sad-video" poster="https://picsum.photos/id/1040/1920/1080" controls>
+                <source src="https://raw.githubusercontent.com/August-5207/video/refs/heads/main/a8ee873fd650e129654ec1aa53fd8925.mp4" type="video/mp4">
+                <div style="color: var(--text-gray); font-size: 1rem; text-align: center; padding: 2rem; line-height: 2;">
+                    您的浏览器不支持视频播放，请更换浏览器或点击下方链接观看
+                    <a href="你确认的微云直接播放链接" class="btn" style="margin-top: 1rem; display: inline-block;">点击跳转观看</a>
+                   </div>
+               </video>
+           </div>
+            <div class="video-warm-text">
+                这段视频里藏着无数个失眠的夜晚，那些说不出口的委屈，那些强撑着的坚强，那些被辜负后的狼狈，都在镜头里一一呈现。或许你能在里面看到自己的影子，看到曾经那么认真的自己，看到那些被感情伤得体无完肤却依然不肯放手的瞬间。视频里的雨，下得像无数个崩溃的夜晚，我们站在雨里，分不清脸上是雨水还是泪水；视频里的空巷，像极了我们分开后独自走过的路，每一步都带着沉重的回忆。愿你看完之后，能与过去和解，放过自己，也放过那些不属于你的感情。不必再为了一个不爱你的人消耗自己，不必再为了一段逝去的感情耿耿于怀，你值得更好的，而更好的，一定在未来等你。
+            </div>
+        </div>
+    </section>
+    <!-- 17个伤感板块 -->
+    <section class="section" id="section1">
+        <h2 class="section-title">真心错付</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">掏心掏肺 换来满身伤痕</div>
+            <div class="memo-card-body">
+                <p>我曾以为只要毫无保留地付出，就能换来同等的真心。那些日子里，我把你放在心尖上，小心翼翼地呵护着我们之间的感情，生怕一点疏忽就会让它破碎。我记得你喜欢吃的每一道菜，记得你不喜欢的天气，记得你随口提起的愿望，甚至记得你无意间说过的一句抱怨。我学着做你爱吃的菜，哪怕自己并不擅长；我学着适应你不喜欢的雨天，哪怕我从小就怕打雷；我攒了很久的钱，只为了给你一个惊喜，实现你随口一提的愿望；我默默记下你的抱怨，想尽办法帮你解决难题，只为了看到你脸上的笑容。</p>
+                <p>我为你放弃了我的爱好，放弃了和朋友相聚的时间，放弃了我的骄傲和底线。曾经的我，也是一个有脾气、有棱角的人，可在你面前，我变得温柔、隐忍，甚至有些卑微。我以为这样的付出能感动你，能让你感受到我的真心，能让我们的感情长久下去。可现实却给了我狠狠一击，你享受着我的好，却从未想过回应。你把我的付出当成理所当然，把我的妥协当成懦弱可欺，把我的真心当成可有可无的东西。</p>
+                <p>当我生病卧床，需要人照顾的时候，你却在和朋友聚会，对我的消息敷衍了事；当我遇到困难，需要人安慰的时候，你却在抱怨我的负能量，对我的困境漠不关心；当我攒够了失望，想要离开的时候，你又假惺惺地挽留，说我是你生命中最重要的人，说你不能没有我。我一次次相信你的谎言，一次次给你机会，可你却一次次让我失望。直到最后，我亲眼看到你对别人说着同样的甜言蜜语，给别人同样的温柔，我才明白，我的真心在你眼里一文不值。真心错付的感觉，就像一把生锈的刀，反复在心上划，每一次呼吸都带着刺痛，直到鲜血淋漓，直到心死如灰。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section2">
+        <h2 class="section-title">谎言与背叛</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">海誓山盟 全是自欺欺人</div>
+            <div class="memo-card-body">
+                <p>你曾对我说过无数次“我爱你”，那些话像蜜糖一样，甜进了我的心里。你说会永远陪着我，无论贫穷富贵、健康疾病，都会不离不弃；你说要和我一起规划未来，买一套属于我们的小房子，养一只可爱的宠物，一起慢慢变老；你说我们会是彼此生命中最后的归宿，再也不会爱上别人。我信了，我把这些话当成信仰，当成支撑我走过艰难岁月的动力。在我遇到挫折想要放弃的时候，是你的承诺给了我勇气；在我孤独无助的时候，是你的誓言给了我温暖；在我对未来感到迷茫的时候，是你的约定给了我方向。</p>
+                <p>我以为我们的感情坚不可摧，以为无论遇到什么困难，我们都会一起面对。我努力工作，只为了能早日实现我们的梦想；我用心经营我们的感情，只为了能让你感受到幸福；我包容你的缺点，原谅你的错误，只为了能让我们的关系更加和睦。可我万万没有想到，这一切都只是我的一厢情愿，你所谓的永远，不过是一时兴起，你所谓的爱，不过是一场精心策划的骗局。</p>
+                <p>我亲眼看到你和别人亲密无间地走在一起，看到你为别人拎包、为别人撑伞、为别人擦眼泪；我亲耳听到你对别人说着同样的情话，承诺着同样的未来；我看到你手机里和别人的暧昧聊天记录，那些肉麻的话语，那些偷偷约会的约定，像一把把尖刀，刺穿了我的心脏。我曾经那么坚信的爱情，原来只是一场笑话，而我，就是那个最可笑的人。背叛的滋味，比死亡更让人绝望，它让我怀疑所有的美好，让我再也不敢相信任何感情，让我对这个世界充满了失望。我曾经以为爱情是纯洁的、美好的、永恒的，可现在我才明白，爱情在有些人眼里，不过是一场游戏，一场可以随意背叛、随意欺骗的游戏。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section3">
+        <h2 class="section-title">渐行渐远</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">从无话不谈到相对无言</div>
+            <div class="memo-card-body">
+                <p>我们曾经是那么要好，好到形影不离，好到无话不谈。每天早上醒来，第一件事就是给对方发一条消息，分享彼此的梦境；每天晚上睡觉前，最后一件事就是和对方视频聊天，诉说一天的喜怒哀乐。哪怕是一件微不足道的小事，比如看到一只可爱的小猫，吃到一道美味的小吃，听到一首好听的歌，我们都会第一时间告诉对方。我们会一起熬夜聊天，聊到凌晨两三点，聊我们的过去、现在和未来；我们会一起去逛街、去看电影、去旅行，留下了无数美好的回忆；我们会一起面对困难，一起解决问题，互相鼓励，互相支持。</p>
+                <p>我以为这样的关系会一直持续下去，以为我们会是彼此一辈子的知己和爱人。可不知从什么时候开始，我们之间的话越来越少，沉默越来越多。你不再主动找我聊天，不再分享你的生活，我发给你的消息，你总是敷衍地回复“嗯”“哦”“知道了”，甚至有时候一整天都不回。我们见面的次数也越来越少，每次见面，都只剩下尴尬的沉默，再也没有了以前的欢声笑语。</p>
+                <p>我拼命想要挽回，想要回到过去。我主动找你聊天，找各种话题，可你总是兴致不高；我主动约你见面，想要弥补我们之间的距离，可你总是找各种借口推脱。我不明白，我们之间到底发生了什么，为什么曾经那么亲密的两个人，会变成现在这个样子。后来我才发现，原来你已经有了新的生活，新的朋友，新的兴趣爱好，而我，却还停留在原地，守着我们曾经的回忆。我们从无话不谈到相对无言，从形影不离到渐行渐远，从彼此生命中最重要的人，变成了最熟悉的陌生人。原来有些关系，真的会随着时间的推移而慢慢变淡，有些感情，真的会在不知不觉中消失殆尽。就像两条相交的直线，在相遇之后，便朝着不同的方向延伸，再也没有交集。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section4">
+        <h2 class="section-title">孤独成瘾</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">热闹是别人的 我什么都没有</div>
+            <div class="memo-card-body">
+                <p>经历过感情的伤害后，我变得越来越孤独。我不再喜欢热闹的场合，不再愿意和别人打交道，我习惯了一个人吃饭、一个人逛街、一个人看电影、一个人度过无数个漫长的夜晚。曾经的我，是一个活泼开朗、喜欢热闹的人，可现在，我却只想待在自己的小世界里，不被任何人打扰。身边的朋友都劝我多出去走走，多认识一些人，多参加一些社交活动，可我却提不起任何兴趣。我害怕再次受到伤害，害怕再次付出真心后被辜负，害怕再次经历那种撕心裂肺的痛苦。</p>
+                <p>孤独就像一种瘾，一旦染上就很难戒掉。我在孤独中学会了自我安慰，学会了与自己和解，学会了不再依赖别人。我会一个人去超市买菜，然后回家做一顿自己爱吃的饭，虽然味道不是很好，但却能让我感受到一丝温暖；我会一个人去公园散步，看着夕阳西下，看着落叶飘零，感受着大自然的宁静；我会一个人在家看电影，看着电影里别人的悲欢离合，仿佛自己也置身其中，暂时忘记了现实的烦恼。</p>
+                <p>可每当夜深人静的时候，孤独感还是会席卷而来，让我难以入眠。我看着窗外的灯火辉煌，看着别人的幸福美满，心里充满了羡慕和失落。我想起曾经和你一起度过的日子，想起我们一起看过的风景，想起我们一起说过的话，眼泪就会不由自主地流下来。我知道，我之所以喜欢孤独，是因为孤独能让我感到安全，能让我不再受到伤害。可我也知道，孤独并不是我想要的生活，我也渴望温暖，渴望陪伴，渴望有人能懂我、疼我、爱我。只是经历过一次又一次的伤害后，我再也不敢轻易相信别人，再也不敢轻易敞开心扉。热闹是别人的，我什么都没有，只剩下无尽的孤独和寂寞，陪伴着我度过一个又一个漫长的夜晚。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section5">
+        <h2 class="section-title">回忆如刀</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">那些美好 如今都是伤痛</div>
+            <div class="memo-card-body">
+                <p>我们曾经有过那么多美好的回忆，那些回忆像一颗颗珍珠，串联起我们在一起的点点滴滴。我们一起看过海边的日落，夕阳把天空染成了橘红色，海浪轻轻拍打着沙滩，我们手牵手，肩并肩，静静地看着太阳慢慢沉入海平面，那一刻，我以为时间会永远停留在那里；我们一起走过清晨的街道，街道两旁的树木郁郁葱葱，鸟儿在枝头歌唱，我们迎着朝阳，聊着天，笑着闹着，那一刻，我以为我们会一直这样幸福下去；我们一起听过深夜的雨声，雨滴敲打着窗户，发出噼里啪啦的声音，我们依偎在一起，听着同一首歌，说着悄悄话，那一刻，我以为我们会是彼此一辈子的依靠。</p>
+                <p>曾经，这些回忆是我最珍贵的财富，每当想起，都会嘴角上扬。可现在，这些回忆却成了最锋利的刀，一次次刺痛我的心。我不敢轻易想起过去，不敢看到和你有关的东西，不敢听到我们曾经一起听过的歌，因为每一次想起，都会让我泪流满面。我把和你有关的照片都藏了起来，把和你有关的礼物都收了起来，把和你有关的歌都从歌单里删除了，我以为这样就能忘记你，忘记我们曾经的回忆。</p>
+                <p>可我错了，那些回忆早已深深烙印在我的脑海里，刻在我的心里，无论我怎么做，都无法抹去。有时候，在街头巷尾，看到一个熟悉的背影，听到一句熟悉的话，闻到一种熟悉的味道，都会让我想起你，想起我们曾经的点点滴滴。那些曾经的美好，如今都变成了伤痛，提醒着我曾经的天真和愚蠢，提醒着我曾经的付出和被辜负。回忆如刀，刀刀致命，它让我在无数个夜晚独自流泪，让我在无数个瞬间陷入痛苦的深渊。我多么希望自己能忘记过去，忘记你，忘记我们曾经的一切，可我却做不到。原来有些回忆，真的可以伤人，而且伤得那么深，那么彻底。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section6">
+        <h2 class="section-title">爱而不得</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">我那么爱你 你却不爱我</div>
+            <div class="memo-card-body">
+                <p>我曾那么用力地爱过你，爱到失去自我，爱到卑微到尘埃里。从我第一眼看到你的那一刻起，我就知道，我完了，我彻底沦陷了。你的笑容像阳光一样，照亮了我的整个世界；你的声音像清泉一样，滋润了我的心田；你的一举一动，一颦一笑，都深深地吸引着我。为了你，我可以做任何事情，我可以放弃我的一切。我努力学习，努力工作，只为了能配得上你；我改变自己的性格，改变自己的习惯，只为了能和你更合拍；我默默为你付出，不求回报，只为了能让你开心。</p>
+                <p>我以为只要我足够努力，足够坚持，就能打动你，就能让你爱上我。我向你表白，可你却委婉地拒绝了我，说我们不合适，说你对我没有那种感觉。我没有放弃，我以为只要我不放弃，总有一天你会看到我的真心，会接受我。我继续为你付出，继续关心你，继续照顾你。在你生病的时候，我第一时间赶到你的身边，照顾你，安慰你；在你遇到困难的时候，我想尽办法帮你解决，为你遮风挡雨；在你不开心的时候，我逗你笑，给你讲笑话，努力让你忘记烦恼。</p>
+                <p>可我还是错了，爱情从来都不是单方面的付出就能换来的。你心里装着别人，无论我怎么做，都无法走进你的心里。我看着你对别人温柔体贴，看着你为别人付出真心，看着你和别人幸福美满，心里像被刀割一样疼。我无数次告诉自己要放弃，要忘记你，可每次看到你，所有的决心都土崩瓦解。爱而不得的滋味，真的太痛苦了，它让我辗转反侧，让我夜不能寐，让我在无数个夜晚独自流泪。我知道，我不该再这样下去，我不该再为了一个不爱我的人消耗自己，可我却控制不住自己的感情。原来有些爱情，从一开始就注定了没有结果，有些付出，从一开始就注定了会被辜负。我那么爱你，可你却不爱我，这或许就是我这辈子最大的遗憾。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section7">
+        <h2 class="section-title">自我封闭</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">把自己藏起来 才不会受伤</div>
+            <div class="memo-card-body">
+                <p>被感情伤透后，我选择了自我封闭。我不再向别人敞开心扉，不再分享我的喜怒哀乐，不再相信任何人的承诺。我把自己包裹在厚厚的壳里，像一只刺猬，竖起所有的尖刺，拒绝任何人的靠近。我以为这样就能保护自己，就能不再受到伤害。曾经的我，是一个非常信任别人的人，我愿意把自己的心事告诉朋友，愿意相信别人的话，愿意对这个世界充满善意。可经历过感情的背叛和伤害后，我再也不敢这样了。</p>
+                <p>我疏远了曾经的朋友，不再参加朋友的聚会，不再和朋友联系。朋友们都很担心我，纷纷打电话、发消息给我，想要关心我，可我却总是敷衍了事，甚至不接电话、不回消息。我知道这样做很对不起他们，可我真的没有勇气再去相信任何人，再去和别人建立亲密的关系。我害怕再次受到伤害，害怕再次被背叛，害怕再次经历那种撕心裂肺的痛苦。我拒绝了所有的追求者，无论他们多么优秀，多么真诚，我都一概拒绝。我不想再开始一段新的感情，不想再投入真心，不想再承受可能会到来的伤害。</p>
+                <p>我习惯了一个人的生活，习惯了孤独和寂寞。我会一个人待在家里，看看书、听听歌、看看电影，或者什么都不做，只是发呆。我把自己和外界隔离开来，不再关注外面的世界，不再关心别人的生活。自我封闭虽然能让我暂时远离伤害，但也让我失去了感受美好的机会。我像一个被困在牢笼里的囚徒，渴望自由，却又不敢走出牢笼。我知道这样下去不行，我知道我应该学会放下过去，学会重新信任别人，学会重新开始。可我真的做不到，那些伤害太深了，深到让我无法忘记，深到让我不敢再去尝试。把自己藏起来，虽然孤独，但至少不会再受伤，这或许是我目前能想到的最好的保护自己的方式。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section8">
+        <h2 class="section-title">执念成殇</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">放不下的 终究是自己</div>
+            <div class="memo-card-body">
+                <p>明明知道我们已经不可能了，明明知道你已经不爱我了，明明知道继续纠缠下去只会让自己更痛苦，可我还是放不下你。我还是会忍不住关注你的动态，忍不住打听你的消息，忍不住在深夜里想起你。我以为只要我坚持下去，就能等到你回心转意的那一天，可我等了很久，等到的却是你和别人幸福的消息。我看到你在朋友圈里晒出和别人的合照，看到你对别人说着曾经对我说过的情话，看到你和别人一起规划未来，我的心像被无数根针刺痛一样，疼得无法呼吸。</p>
+                <p>我无数次告诉自己，要放下你，要忘记你，要开始自己新的生活。我删掉了你的联系方式，可又忍不住重新加回来；我把和你有关的东西都扔掉了，可又忍不住买了回来；我试着去认识新的人，试着去开始一段新的感情，可每当和别人相处的时候，我都会不自觉地想起你，想起我们曾经的点点滴滴，结果总是不了了之。执念就像一根无形的绳子，紧紧缠绕着我，让我无法呼吸，让我在痛苦的深渊里无法自拔。</p>
+                <p>我知道，我放不下的不是你，而是我曾经付出的真心，是我那段逝去的青春，是我对爱情的美好憧憬。我不甘心，不甘心自己那么多年的付出就这样付诸东流，不甘心自己那么深爱的人就这样离开了我，不甘心自己的爱情就这样以失败告终。可我也知道，执念成殇，伤的不是别人，而是自己。我这样一直纠缠下去，只会让自己更痛苦，只会让自己无法开始新的生活。或许，我应该学会放下，学会释怀，学会和过去和解。毕竟，人生还有很长的路要走，还有很多美好的事情在等着我。放不下的终究是自己，放过自己，才能真正地解脱。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section9">
+        <h2 class="section-title">旧梦难寻</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">曾经的美好 再也回不去了</div>
+            <div class="memo-card-body">
+                <p>我无数次在梦里回到过去，回到我们初遇的那天。那天阳光明媚，微风不燥，你穿着一件白色的连衣裙，站在阳光下，笑容灿烂，像天使一样。我们相视一笑，没有太多的言语，却仿佛已经认识了很久。在梦里，我们还是那个对爱情充满憧憬的少年少女，我们一起上学，一起放学，一起度过了无数个美好的时光。我们一起在操场上奔跑，一起在图书馆看书，一起在食堂吃饭，一起在夜晚的校园里散步。那些日子，简单而快乐，纯粹而美好。</p>
+                <p>在梦里，你还是那个对我温柔体贴的人，你会记得我的生日，会给我准备惊喜；你会在我生病的时候照顾我，会在我难过的时候安慰我；你会在我遇到困难的时候鼓励我，会在我迷茫的时候指引我。我们一起规划未来，一起憧憬着美好的生活，我们以为我们会一直这样幸福下去，会一起走进婚姻的殿堂，会一起白头偕老。可当我醒来，面对的却是冰冷的现实和无尽的孤独。我躺在床上，睁着眼睛看着天花板，眼泪不知不觉地流了下来。我多么希望自己能一直活在梦里，永远不要醒来，这样就能永远和你在一起，永远拥有那些美好的回忆。</p>
+                <p>我拼命想要回到过去，想要重温那些美好，可我知道，过去的终究过去了，再也回不去了。时间是最无情的东西，它能抚平所有的伤痛，也能冲淡所有的美好。曾经的海誓山盟，曾经的甜言蜜语，曾经的亲密无间，都随着时间的推移而慢慢变淡，慢慢消失。我回到我们曾经一起去过的地方，那里的景物依旧，可身边的人却早已不是你。我站在熟悉的地方，仿佛还能看到我们曾经的身影，还能听到我们曾经的欢声笑语，可一切都已经物是人非。旧梦难寻，那些逝去的美好，只能永远留在回忆里，成为我心中最珍贵的遗憾。或许，人生就是这样，总有一些人，一些事，一旦错过，就再也回不去了。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section10">
+        <h2 class="section-title">物是人非</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">景物依旧 人心已变</div>
+            <div class="memo-card-body">
+                <p>再次回到我们曾经一起去过的城市，心里充满了感慨。这座城市还是那么繁华，那么热闹，街道两旁的高楼大厦依旧林立，马路上的车水马龙依旧喧嚣，公园里的花草树木依旧茂盛。可我却再也找不到曾经的感觉了，因为身边的人已经不是你了。我们曾经一起在这座城市里留下了太多的回忆，一起逛过的商场，一起吃过的餐厅，一起看过的电影，一起走过的街道，都还在原来的地方，可我们的感情却早已物是人非。</p>
+                <p>我来到我们曾经一起逛过的商场，看着里面琳琅满目的商品，想起我们曾经在这里一起挑选衣服、一起吃小吃、一起玩游戏的场景，眼泪忍不住流了下来。我来到我们曾经一起吃过的餐厅，坐在我们曾经坐过的位置上，点了我们曾经一起吃过的菜，可味道却再也不是原来的味道了，因为没有你的陪伴，再美味的食物也变得索然无味。我来到我们曾经一起看过电影的电影院，看着屏幕上播放的电影，想起我们曾经在这里一起哭、一起笑、一起感动的场景，心里充满了失落和遗憾。</p>
+                <p>我沿着我们曾经一起走过的街道慢慢走着，看着熟悉的风景，想起我们曾经在这里手牵手、肩并肩，聊着天、笑着闹着的场景，仿佛就发生在昨天。可现实却告诉我，一切都已经变了。你不再是曾经的你，我也不再是曾经的我，我们之间的感情，也早已在岁月的流逝中慢慢消散。物是人非的感觉，真的让人感慨万千。原来有些东西，一旦失去，就再也找不回来了。原来人心，真的会随着时间的推移而慢慢改变。这座城市见证了我们的爱情，也见证了我们的分离。如今，我一个人漫步在这座城市里，只剩下无尽的孤独和思念。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section11">
+        <h2 class="section-title">深情无用</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">再深的情 也留不住要走的人</div>
+            <div class="memo-card-body">
+                <p>我曾以为深情是世界上最珍贵的东西，以为只要我对一个人足够深情，就能留住他。可后来我才发现，深情在现实面前是多么的苍白无力。你要走，无论我多么深情，无论我多么挽留，都留不住你。你就像一阵风，来了又走，留下我一个人在原地，独自承受着所有的痛苦和孤独。我为你付出了那么多，为你伤心了那么多次，为你流泪了那么多个夜晚，可这些深情，在你眼里都不值一提。</p>
+                <p>我记得我们分开的那天，天空下着小雨，就像我的心情一样，充满了悲伤和绝望。我拉着你的手，苦苦哀求你不要走，我对你说我不能没有你，我对你说我会改，我会变成你喜欢的样子。可你却冷漠地推开了我的手，对我说我们已经不可能了，让我不要再纠缠你。你转身就走，没有丝毫的犹豫，没有丝毫的留恋，任凭我在雨中痛哭流涕。我看着你的背影，慢慢消失在雨幕中，我的心也跟着碎了。</p>
+                <p>我以为只要我一直等，一直付出，你就会回心转意，可我等了很久，等到的却是你和别人在一起的消息。我看着你和别人幸福的样子，心里像被刀割一样疼。我终于明白，深情真的无用，再深的情，也留不住要走的人，再真的爱，也换不来想要的结果。有些人，注定只是你生命中的过客，无论你多么珍惜，无论你多么挽留，他们都会离开。或许，我应该学会放下，学会释怀，学会接受现实。毕竟，人生还有很长的路要走，我不能一直活在过去的回忆里，不能一直为了一个不爱我的人伤心流泪。深情无用，那就让这份深情埋在心底，成为我生命中一段难忘的回忆吧。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section12">
+        <h2 class="section-title">自我救赎</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">唯有自己 能拯救自己</div>
+            <div class="memo-card-body">
+                <p>在经历了无数次的伤害和痛苦后，我终于明白，没有人能拯救我，除了我自己。我不能再沉溺于过去的回忆，不能再为了一个不爱我的人伤心流泪，不能再自我封闭，不能再让自己活在痛苦和孤独中。我要学会自我救赎，学会与过去和解，学会爱自己。这是一个漫长而艰难的过程，需要很大的勇气和毅力，但我知道，我必须这样做，否则我永远都无法走出阴影，永远都无法开始新的生活。</p>
+                <p>我开始尝试走出阴影，开始重新认识自己。我报名参加了各种兴趣班，学习画画、学习瑜伽、学习烹饪，我想要培养自己的兴趣爱好，丰富自己的生活。在学习的过程中，我遇到了很多志同道合的朋友，我们一起学习，一起交流，一起进步。我慢慢变得开朗起来，慢慢变得自信起来，慢慢找回了曾经的自己。我开始和曾经的朋友重新联系，向他们道歉，为我之前的疏远和冷漠道歉。朋友们都很理解我，也很支持我，他们陪我聊天，陪我逛街，陪我旅行，让我感受到了久违的温暖和陪伴。</p>
+                <p>我开始学会爱自己，我不再为了别人而委屈自己，不再为了别人而放弃自己的原则和底线。我会好好照顾自己的身体，按时吃饭，按时睡觉，坚持锻炼；我会好好照顾自己的情绪，不再轻易生气，不再轻易难过，学会调整自己的心态；我会好好规划自己的未来，努力工作，努力赚钱，为自己的梦想而奋斗。我知道这个过程会很艰难，会遇到很多困难和挫折，但我不会放弃。我要努力让自己变得更优秀，让自己活得更精彩。我要让那些伤害过我的人知道，没有他们，我一样可以过得很好，甚至可以过得更好。唯有自己，能拯救自己，唯有自己，能给自想要的幸福。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section13">
+        <h2 class="section-title">不再相信</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">爱情 不过是一场骗局</div>
+            <div class="memo-card-body">
+                <p>被感情伤透后，我再也不相信爱情了。我觉得爱情就是一场精心策划的骗局，充满了谎言和背叛。那些所谓的海誓山盟，那些所谓的甜言蜜语，那些所谓的永恒不变，都只是用来欺骗别人的谎言。我见过太多的爱情，开始时轰轰烈烈，结束时却狼狈不堪。我见过太多的人，在爱情中受伤，在爱情中迷失自我，在爱情中变得面目全非。我曾经也对爱情充满了憧憬，曾经也相信爱情是纯洁的、美好的、永恒的，可经历过一次又一次的伤害后，我再也不敢相信了。</p>
+                <p>我看到身边的朋友，为了爱情付出了一切，可最后却换来的是背叛和伤害。他们有的为了爱情放弃了自己的事业，有的为了爱情疏远了自己的家人和朋友，有的为了爱情变得卑微不堪，有的为了爱情陷入了深深的痛苦和绝望。我看着他们，就像看到了曾经的自己，心里充满了感慨和无奈。我不再相信任何人的承诺，不再相信任何感情的美好。我觉得所有的爱情，最终都会走向破灭，所有的承诺，最终都会变成谎言。</p>
+                <p>我宁愿一个人孤独终老，也不愿意再经历一次感情的伤害。不再相信爱情，或许是一种遗憾，但也是一种保护自己的方式。我不再期待爱情的到来，不再渴望爱情的滋润，不再幻想爱情的美好。我只想专注于自己的生活，努力工作，努力赚钱，好好照顾自己，好好享受生活。我觉得一个人的生活也可以很精彩，也可以很幸福。没有爱情的束缚，没有感情的伤害，我可以自由地做自己想做的事情，去自己想去的地方，追求自己想要的梦想。不再相信爱情，不是我对爱情失去了希望，而是我对爱情有了更清醒的认识。我知道，爱情并不是生活的全部，没有爱情，生活一样可以继续，而且可以继续得很好。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section14">
+        <h2 class="section-title">各自安好</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">从此 山水不相逢 此生不复见</div>
+            <div class="memo-card-body">
+                <p>经过这么多事情后，我终于放下了你，放下了过去。我不再关注你的动态，不再打听你的消息，不再在深夜里想起你。我真心祝福你能找到属于你的幸福，能和你爱的人白头偕老。虽然我们不能在一起，但我还是希望你能过得好，希望你能快乐，希望你能幸福。毕竟，我们曾经相爱过，曾经一起度过了那么多美好的时光。那些时光，虽然已经逝去，但依然是我生命中一段难忘的回忆。</p>
+                <p>我开始我新的生活，我努力工作，努力赚钱，好好照顾自己。我培养了自己的兴趣爱好，丰富了自己的生活。我和朋友们一起旅游，一起聚餐，一起参加各种活动，我感受到了久违的快乐和幸福。我不再为了过去的事情耿耿于怀，不再为了失去的爱情伤心流泪，不再为了不属于自己的人浪费时间和精力。我学会了与过去和解，学会了放下，学会了释怀。</p>
+                <p>从此，我们山水不相逢，此生不复见。这不是一句狠话，而是一种释然，一种解脱。我会把我们曾经的美好和伤痛都埋在心底，让它成为我生命中一段难忘的经历。我会带着过去的经历和教训，勇敢地面对未来的生活，努力活成自己想要的样子。我相信，在未来的某一天，我会遇到一个真正懂得珍惜我、爱护我、疼惜我的人，我们会一起走过人生的风风雨雨，一起分享生活的喜怒哀乐，一起白头偕老。各自安好，是我对你最后的祝福，也是对我们这段感情最好的结局。愿我们在彼此看不见的岁月里，都能过得很好，都能找到属于自己的幸福。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section15">
+        <h2 class="section-title">归于沉寂</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">所有的情绪 最终都会归于沉寂</div>
+            <div class="memo-card-body">
+                <p>曾经的喜怒哀乐，曾经的爱恨情仇，曾经的执着与放不下，在时间的洗礼下，最终都会归于沉寂。那些让我痛苦的回忆，那些让我流泪的瞬间，那些让我无法释怀的感情，都会慢慢变淡，慢慢消失。我不再为了感情伤心流泪，不再为了过去耿耿于怀，不再为了未来迷茫焦虑。我变得平静而淡然，学会了接受生活中的不完美，学会了与自己和解，学会了在孤独中寻找快乐。</p>
+                <p>我开始享受一个人的生活，一个人看书，一个人听音乐，一个人旅行。在看书的过程中，我感受到了知识的力量，感受到了作者的思想和情感；在听音乐的过程中，我感受到了旋律的美妙，感受到了歌词的深意；在旅行的过程中，我感受到了大自然的神奇，感受到了不同地方的风土人情。我不再需要别人的陪伴，不再需要别人的理解，不再需要别人的认可。我学会了与自己相处，学会了倾听自己内心的声音，学会了做自己想做的事情。</p>
+                <p>归于沉寂，不是放弃，而是一种成长，一种成熟。我知道，生活还在继续，未来还有很多美好的事情在等着我。我会带着过去的经历和教训，勇敢地面对未来的生活，努力活成自己想要的样子。我不再追求轰轰烈烈的爱情，不再追求功名利禄，不再追求别人的认可和赞美。我只想要一份平静而安稳的生活，一份简单而快乐的生活，一份属于自己的生活。所有的情绪，最终都会归于沉寂，所有的伤痛，最终都会被时间抚平。愿我们都能在沉寂中成长，在沉寂中坚强，在沉寂中找到属于自己的幸福和快乐。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section16">
+        <h2 class="section-title">什么才是真心</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">掏心掏肺过后 我终于读懂真心</div>
+            <div class="memo-card-body">
+                <p>在经历了一次次的真心错付和感情背叛后，我不止一次地问自己，什么才是真心？是那些甜言蜜语的承诺，还是那些轰轰烈烈的举动？是那些在你顺境时的追捧，还是那些在你逆境时的陪伴？曾经的我，以为真心就是毫无保留的付出，就是奋不顾身的爱，就是永远不变的承诺。可现实却一次次告诉我，我错了，那些都不是真心，或者说，都不是完整的真心。</p>
+                <p>真心不是随口说说的“我爱你”，而是落实在行动中的关心和照顾。真心不是在你开心的时候陪你笑，而是在你难过的时候陪你哭；真心不是在你成功的时候为你喝彩，而是在你失败的时候给你鼓励；真心不是在你健康的时候对你温柔体贴，而是在你生病的时候对你悉心照料。真心是平凡日子里的点点滴滴，是柴米油盐中的相互包容，是风雨同舟中的不离不弃。真心不需要多么华丽的辞藻，不需要多么浪漫的举动，只需要一颗真诚待人的心，一份坚定不移的情。</p>
+                <p>真心不是单方面的付出，而是双向的奔赴。真正的真心，是你懂我的不易，我懂你的辛苦；是你愿意为我付出，我也愿意为你牺牲；是你珍惜我的真心，我也珍惜你的感情。真心不是一厢情愿的纠缠，而是两情相悦的陪伴；不是卑微讨好的迎合，而是平等尊重的相处；不是一时兴起的喜欢，而是长久不变的爱恋。真心是经得起时间考验的，是经得起平淡流年的，是经得起风雨洗礼的。在这个充满谎言和背叛的世界里，真心显得那么珍贵，那么难得。或许，我们一辈子都遇不到一个真心待我们的人，或许，我们曾经遇到过，却因为不懂珍惜而错过了。但我依然相信，真心是存在的，只是它需要我们用心去寻找，用心去感受，用心去珍惜。掏心掏肺过后，我终于读懂真心，也终于明白，真心才是这个世界上最珍贵的东西。</p>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="section17">
+        <h2 class="section-title">八月未写完的信</h2>
+        <div class="memo-card">
+            <div class="memo-card-header">致那个我无法和好的你</div>
+            <div class="memo-card-body">
+                <p>2025年7月18日，是我跌进一场盛夏的开端，也是我后来无数个深夜里，最想推翻的一天。</p>
+                <p>遇见她之前，我困在打游戏的疲惫里，心情像没拧紧的水龙头，淅淅沥沥全是低落。是她把光带进来，聊天框里的字字句句，都成了治愈我的良药。后来知道她有男朋友，我自觉退到朋友的位置，怕惊扰了她的安稳。她愿意跟我讲心事，我就做最忠实的听众；她喊我打游戏，我永远随叫随到；她难过的那天，我推掉兄弟的邀约，陪她听歌到深夜。我跟兄弟念叨，呆宋怎么这么可怜，她男朋友怎么不来陪她，换我来，我愿意。</p>
+                <p>那时的第六感像根细针，轻轻刺着我的不安。我梦见被她拉黑，哭着惊醒的深夜，一遍遍问自己，我到底做错了什么？你需要我怎么做？我怎么才能让你相信我的真心？为什么你从来不肯回头看我一眼？他到底哪里比我好？我掏心掏肺的付出，我真的快要撑不下去了，唉…… 我朋友说啥你都要相信吗？你相信他还是相信我？我朋友说我不缺女朋友就真的不缺？ 主动发消息的只有我一个人，你啥时候能，能回头看我一眼啊？ 我盯着输入框反复编辑，删了又写，写了又删，生怕哪句话说错惹你烦，可每次发送后，等来的只有石沉大海的寂静。我算着你可能在线的时间，把手机音量调到最大，手指攥着手机发烫，连掌心都沁出了汗，屏幕一亮就慌慌张张点开，指尖都带着颤，结果每次都只是无关紧要的推送。我甚至会下意识反复刷新聊天界面，盯着那个灰暗的头像发呆，心里还一遍遍替你找借口：我知道你很忙，比我忙好吧，我就算现在搞自研系统搞LOGO设计搞代码，你也比我忙。我掏心掏肺守着的只有你啊，我……你说我不是真心的，我要怎么才能真心？我每天都守着手机等你的消息，每天都把你的委屈放在心上，每天都在想怎么才能护你周全，可是现在换来的是，你轻飘飘的怀疑，和后来的视而不见。我现在是真的忘不掉，你可能说我写这么多有病，对，我有病，病在对你的执念里，病在那段回不去的盛夏里。 你现在一直都是我的置顶哪怕是QQ，快手取关，拉黑…… 我就是这么没出息，哪怕所有联系方式都只剩冰冷的界面，也舍不得把那个位置让给别人。我现在已经完全失去所有勇气，别人说，天天开心，我……我现在连资格都没有了…… 她曾说我身边不缺女孩子，可她不知道，那些莫名其妙加我的人，我连名字都没记住，随口一句“谈”不过是被烦透了的应付，连情头都懒得换——满心满眼都是她的人，哪有心思敷衍别人。耳机里循环着邓紫棋的《唯一》，“你真的懂唯一的定义，并不简单如呼吸”，我总在心里默念，你就是我的唯一，可我连说出口的资格都没有。</p>
+                <p>像在笼子里的猫，铁的隔离一样的逃不了，就像困在车道动不了，动不了。曾经我和你说好的那些未来和约定，你早已丢弃忘记而我在这里，还在这里，I'm trapped I'm trapped I'm trapped，Oh I'm trapped oh。囚徒该怎么逃，我怎么才能找到，力量挣脱这镣铐，这副镣铐。我早已经被困牢，感到重复的每天是煎熬，好像我就快要疯掉，我要逃，Oh。过去的美好，我们再找不到，再也没得选择我应该快跑，现在，I'm trapped I'm trapped。</p>
+                <p>耳机里突然淌出《Heaven》的旋律，“You're my only one way，넌 나의 천국인 걸”，原来遇见你的时候，人间真的有天堂。那些陪你熬过的深夜，那些听你倾诉的时刻，你眼里的光、说话的温柔，都让这乱糟糟的世界变得明亮——你就是我贫瘠岁月里的救赎，是我以为能抵达的永恒天堂。可如今只剩“Say yes to heaven，say yes to me”的执念在心底反复回响，我对着空荡的房间轻声哀求，你却早已走远，连回头都不肯。</p>
+                <p>和平精英我根本不敢打开，因为我在这里受过伤；从前，手机里打开的都是和平精英，25年的日子里，这款游戏一天必须8小时起步，枪声和跑毒的紧张填满了所有空隙；现在呢，一天1小时就差不多了，指尖划过屏幕都觉得生涩。反而QQ音乐一天8小时起步，那些单曲循环的歌，替我藏了所有说不出口的话。QQ，这是我第157次取消发送，那些敲了又删的话，终究没敢送到你面前；快手，快手只是短暂的开心，划到的热闹都是别人的，关了屏幕只剩满室冷清。</p>
+                <p>晚上本来是一个睡觉的时候，而我却是一个为自己发泄的疯子，在黑夜里敲下一行行满是委屈的字，对着空气一遍遍复述那些没说出口的话，连眼泪都不敢发出太大的声响。</p>
+                <p>8月末的拉黑，像一盆冷水浇灭了所有热望。我费尽心思讨说法把她加回来，从此便收起所有念想，只敢在远处静静守护。她说有危险我第一个上，她要是线下受了欺负，哪怕隔着2000公里，我也会不顾一切奔过去。</p>
+                <p>湖癔科技，就是我为她筑起的网络堡垒。“湖”是湖北的根，“癔”是宜昌的谐音，我想隔着712.6公里的距离，护她网络一生周全，不让她受半点网暴和欺负。我在这家我亲手创办的科技工作室里，定下平等协调的核心准则——无论面对什么样的网络纷争，都要以公正的立场化解矛盾，就像我当初只想平等地站在她身边，护她安稳。哪怕有天公司停业、破产，我也会把这份守护、这份平等的初心做到底。</p>
+                <p>我送她的会员加起来980，我为她挨过的打，胳膊上留着的疤，都是我曾不顾一切的证明。可后来，消息越来越少，直到已读不回成了常态；快手关注她，等不来一个回关；跨年的零点，我守着屏幕，没等到一句新年快乐，耳边却循环起《没如果》的旋律，眼泪差点掉下来。</p>
+                <p>我还在试着，找寻迷失在途中真实的自己，找一条路离开不再真心的你，让我再远离，I'm trapped I'm trapped。就让我遗忘，请你让我遗忘，就给我解放，要怎么离开。曾经我和你说好的那些未来和约定，你早已丢弃忘记而我在这里，还在这里，I'm trapped I'm trapped I'm trapped oh。</p>
+                <p>《Heaven》还在循环，“If you go I'll stay，You come back I'll be right here”，我曾以为这份坚守能等到你回头，以为只要我够执着，就能把短暂的天堂变成永恒。可现实是，你在你的幸福里安然无恙，我却困在回忆的牢笼里，抱着“let me find my way back home”的念想，找不到回去的路。原来有些天堂，注定只是一场短暂的邂逅，一旦错过，就只剩无尽的思念和遗憾。</p>
+                <p>我曾在湖癔科技立过规矩，快手客服要是敢私自去看她的主页，我会直接开除。现在，我真的把人开除了。你看啊，我连这种莫名其妙的醋意和执念，都刻进了公司的规矩里，可你呢？你连看我一眼的时间都吝啬，连一句敷衍的回复都不肯施舍。邓紫棋的《唯一》在耳边响起，“我真的爱你，没人能比拟”，我以为我的守护能换来你的一丝在意，可到头来，我只是你生命里的一个过客。</p>
+                <p>10月开始，情绪坠进低谷，像是被抑郁症缠上。家里的区别对待，网络上的不公，全世界都像在跟我作对。负面情绪像潮水，怎么挡都挡不住，耳机里《坠落》的调子反复回响，从前在朋友堆里笑得没心没肺的自己，如今只剩对着屏幕发呆的落寞。指尖悬在对话框上，那些没说出口的话，早被风吹散在回忆里。翻来覆去的夜里，华晨宇的《烟火里的尘埃》突然漫上来，“为何表情要让这世界安排，我就是我我只是我，只是一场烟火散落的尘埃，风阵阵吹过来，风一去不回来”，那一刻突然鼻酸，我明明那么认真地爱过，怎么最后连自己都弄丢了。</p>
+                <p>兄弟心疼我，在她的快手作品下为我撑场面，我笑着说没事，说以后再也不提她了。可随手点开评论区，却看见她给我兄弟点赞、回复——那我呢？我在她眼里，是不是从来都只是个多余的人？《爱人错过》的前奏突然在脑海里响起，眼眶瞬间泛红，她就像一阵风，来了又走，连一句告别都没有留下，我站在原地，连挽留都没来得及说出口。</p>
+                <p>气到发抖的瞬间，我点了取关。也是，当初让她开两个简单的设置都不肯，如今这样的结局，其实早有预兆。《意外》的旋律带着无奈，原来遇见是意外，分开也是，那些以为会天长地久的陪伴，最后都成了突如其来的离开，打得我措手不及。</p>
+                <p>八月的风总裹着黏腻的热，焊死了那段耳机分半的时光。她曾发来消息说“突然好想听歌，你陪我好不好”，说“《爱我还是他》唱到我心里了”，说“快乐怎么这么难”。我便守着听筒，陪着她从深夜到黎明，把她的emo文案存进备忘录，把她的委屈揣进心里，盼着她能早点挣脱乌云。《特别的人》响起时，总会想起她笑起来的温柔，说话的声音轻轻的，像春日里的风。</p>
+                <p>后来她真的好了，对话框里她说“我很幸福”“我有对象了”，配着甜甜的表情包。我敲出“真好，太为你开心了”，心里是真的替她高兴。只是歌单轮转时，再听到《你要的全拿走》《爱我还是他》《不为谁而作的歌》，还是会愣住——那些陪她熬过的夜晚，那些藏在歌词里的心事，那些没说出口的牵挂，终究成了我一个人的独家回忆。《可不可以》的歌词字字戳心，“说好带你流浪，而我却半路返航”，直到走远了才发现，原来我早就离不开，可再拼命往回跑，也追不上时光的脚步。</p>
+                <p>她曾说“放不下也要放下”，我懂。《舍得》的歌词唱得洒脱，可真要放手的时候，才知道有多舍不得。舍不得那些一起走过的路，舍不得那些没说完的话，舍不得那个曾经满心欢喜的自己。《说散就散》响起时，才明白成年人的告别，从来都是悄无声息的，没有争吵，没有拥抱，只是从某天起，不再联系，然后就真的散了。</p>
+                <p>我现在真的崩溃了，每天还要搞自研系统，我搞不来，我不想搞，因为连你都不相信我了，我还撑着这一切有什么意义？ 耳机里突然炸开《IF YOU》最戳心的那句嘶吼：“IF YOU IF YOU，아직 너의 맘에 나 있다면”，如果，如果你心里还有我，哪怕只有万分之一，我是不是还能有勇气撑下去？我说我累了，我说我快扛不住了，可这些话，连说出口的对象都没有。
+ 
+                <p>我现在是真的累了，太累了，这世上没有一个人能理解我，除了曾经的她。《我只能离开》的歌词像一把钝刀子，慢慢割着心，不是不爱了，也不是不想留了，只是这份执着耗尽了我所有力气。我怎么就，把一场盛夏的光，活成了凛冬的霜。<p>
+ 
+                <p>《不将就》里唱“你说你不该将就”，其实我也是，可面对那些遗憾，终究还是将就了自己的不甘心。《不为谁而作的歌》原来唱的是我自己，这一路走来跌跌撞撞，不是为了谁，只是为了不辜负曾经拼尽全力的自己。<p>
+                <p>August是她留在我世界里的最后印记，我的青春，好像永远停在了那个八月。人总是会变的，我掏了真心，搭了精力，最后什么都没留住。《凄美地》的调子很沉，像我此刻的心情，被困在回忆里走不出去，也舍不得出去。那些关于她、关于湖癔科技、关于2025年的碎片，都在这方天地里，闪着微弱的光。<p>
+                <p>还好骨子里那股《浪漫血液》未曾冷却，哪怕前路坎坷，哪怕孤身一人，也想带着这份浪漫，把湖癔科技的故事继续写下去。而她，我只能站在原地，安安静静说句“祝你岁岁都安稳”，把剩下的难过，自己扛。<p>
+ 
+                <p>耳机里终于响起《最好的安排》，“或许这就是最好的安排，就让爱教我学会忍耐”。那些遗憾、不甘与疲惫，原来都是时光的馈赠，让我在掏心掏肺的付出里看清真心，在悄无声息的告别里学会释怀。她来过，照亮过我的盛夏；我爱过，拼尽过我的热忱；湖癔科技的初心，也成了我往后前行的铠甲。没有对错，没有亏欠，这才是最好的安排。而那首邓紫棋的《唯一》，终究成了我一个人的单曲循环，提醒着我，曾为一个人，毫无保留地付出过全部真心。末了，《Heaven》的旋律再次轻柔响起，“Heaven is a place on earth with you”，原来你曾带我抵达过天堂，哪怕只是一场短暂的幻梦，也足够支撑我走过往后无数个孤单的漫长岁月。华晨宇的歌声又轻轻响起，“为何表情要让这世界安排，我就是我我只是我，只是一场烟火散落的尘埃”，是啊，风会吹走很多东西，但吹不散那个拼过命的自己，往后的烟火，要为自己而亮了。<p>
+ 
+            <p>全文我也写完了，希望你，偶然翻到的时候，能停下来看一眼。<p>
+ 
+            <p>就一眼。
+           </div>
+       </div>
+   </section>
+   
+   <!-- 新增：音乐歌词板块（含所有指定歌曲戳心歌词） -->
+    <section class="section" id="music-lyric-section">
+        <h2 class="section-title">音乐里的伤感心事</h2>
+        <div class="music-lyrics">
+            <!-- 恋人 - 李荣浩（戳心片段） -->
+            <div class="song-item">
+                <div class="song-title">恋人</div>
+                <div class="song-singer">演唱：李荣浩</div>
+                <div class="lyric-line">是否还是不太喜欢吃香菜 到现在都没改</div>
+                <div class="lyric-line">那双原来最喜欢的匡威鞋带 现在却解不开</div>
+                <div class="highlight-lyric">凶手和恋人都喜欢事后回现场 看一看自己从前到底有多疯狂</div>
+                <div class="highlight-lyric">回忆里充满着罗曼蒂克的幻想 那张磁带里藏着过往 播放了就会回到现场</div>
+                <div class="lyric-line">昨天的爱 已回不来 却依然在心里徘徊</div>
+            </div>
+
+            <!-- 浪漫血液 - 林俊杰 -->
+            <div class="song-item">
+                <div class="song-title">浪漫血液</div>
+                <div class="song-singer">演唱：林俊杰</div>
+                <div class="lyric-line">从不是谁的错 怪我们太执着 对缘分要求太多</div>
+                <div class="lyric-line">从不去想如果 假设只剩结果 又难分难舍</div>
+                <div class="highlight-lyric">浪漫血液 深爱着 却不懂如何快乐</div>
+                <div class="lyric-line">错过了 才明白 珍惜什么</div>
+                <div class="lyric-line">浪漫血液 流淌着 多少的不舍</div>
+                <div class="lyric-line">说过的 承诺的 都已褪色</div>
+            </div>
+
+            <!-- 你要的全拿走 - 胡彦斌 -->
+            <div class="song-item">
+                <div class="song-title">你要的全拿走</div>
+                <div class="song-singer">演唱：胡彦斌</div>
+                <div class="lyric-line">开头都是你在问 结果总是我在等</div>
+                <div class="lyric-line">说话留着分寸 气氛却不见加温</div>
+                <div class="highlight-lyric">爱不爱了 留下的人 苦等着</div>
+                <div class="lyric-line">你要的全拿走 把回忆化成空</div>
+                <div class="lyric-line">不要在乎感受 体面的有所保留</div>
+                <div class="lyric-line">说过的话当赠品 附送折磨</div>
+            </div>
+
+            <!-- 爱我还是他 - 陶喆 -->
+            <div class="song-item">
+                <div class="song-title">爱我还是他</div>
+                <div class="song-singer">演唱：陶喆</div>
+                <div class="lyric-line">黑暗中的我们 都没有说话</div>
+                <div class="lyric-line">你低着头 回忆涌上心头</div>
+                <div class="highlight-lyric">爱我还是他 我宁愿听到残忍的回答</div>
+                <div class="lyric-line">也不要你 如此的挣扎</div>
+                <div class="lyric-line">爱我还是他 我为你找了一百个理由</div>
+                <div class="lyric-line">我就是那么傻 爱你的方法</div>
+            </div>
+            
+            <!-- 可不可以 - 张紫豪（戳心片段） -->
+            <div class="song-item">
+                <div class="song-title">可不可以</div>
+                <div class="song-singer">演唱：张紫豪</div>
+                <div class="lyric-line">情窦初开遇到你 是我最大的运气</div>
+                <div class="lyric-line">三年回忆 我却忘不掉你</div>
+                <div class="highlight-lyric">可不可以 你把我宠坏 坏到我谁都不爱</div>
+                <div class="highlight-lyric">说好带你流浪 而我却半路返航 让你独自收场</div>
+                <div class="lyric-line">我可以治愈你的伤 也可以给你肩膀</div>
+                <div class="lyric-line">趁我还没被淘汰 趁你还愿意依赖</div>
+            </div>
+
+           <!-- 偏爱 - 张芸京（戳心片段） -->
+           <div class="song-item">
+               <div class="song-title">偏爱</div>
+               <div class="song-singer">演唱：张芸京</div>
+               <div class="lyric-line">把昨天都作废 现在你在我眼前</div>
+               <div class="lyric-line">我想爱 请给我机会</div>
+               <div class="highlight-lyric">如果我错了也承担 认定你就是答案</div>
+               <div class="highlight-lyric">我不怕谁嘲笑我极端 相信自己的直觉</div>
+               <div class="lyric-line">顽固的人不喊累 爱上你 我不撤退</div>
+               <div class="lyric-line">痛也很愉快 把你藏在心头</div>
+           </div>
+
+           <!-- 我只能离开 - 颜人中（戳心片段） -->
+           <div class="song-item">
+               <div class="song-title">我只能离开</div>
+               <div class="song-singer">演唱：颜人中</div>
+               <div class="lyric-line">那些模糊破旧回忆 故事已归零</div>
+               <div class="lyric-line">视线停留在你倒影 爱不再清晰</div>
+               <div class="highlight-lyric">忘不掉的是先离开的 我是没有资格挽留你的双手</div>
+               <div class="highlight-lyric">我循着你的眼神痕迹 怎么不断提醒 紧紧拥抱着你的冷漠</div>
+               <div class="lyric-line">一瞬间掉落的泪 只想牵着你不放</div>
+               <div class="lyric-line">我只能离开 我只能离开</div>
+           </div>
+
+           <!-- 坠落 - 蔡健雅（戳心片段） -->
+           <div class="song-item">
+               <div class="song-title">坠落</div>
+               <div class="song-singer">演唱：蔡健雅</div>
+               <div class="lyric-line">放任地坠落 沾满一身灰 你却看不见</div>
+               <div class="lyric-line">坠落的姿态 比飞翔更美 我心甘情愿</div>
+               <div class="highlight-lyric">你的指纹刻成我的年轮 流着血却说这是玫瑰</div>
+               <div class="highlight-lyric">当失重成为习惯 大地才是深渊 碎片折射的光 刺穿所有谎言</div>
+               <div class="lyric-line">我在黑暗中醒来 看透了自己的卑微</div>
+               <div class="lyric-line">坠落不是终结 是觉醒的起点</div>
+           </div>
+           
+           <!-- 不将就 - 李荣浩（戳心片段） -->
+           <div class="song-item">
+               <div class="song-title">不将就</div>
+               <div class="song-singer">演唱：李荣浩（电影《何以笙箫默》片尾曲）</div>
+               <div class="lyric-line">算一算 虚度了多少个年头 仿佛足够写一套错爱的春秋</div>
+               <div class="lyric-line">你问我 为什么顽固而专一 天下太大 总有人比你更合适</div>
+               <div class="highlight-lyric">互相折磨到白头 悲伤坚决不放手 开始纠缠之后 才又被人放大了自由</div>
+               <div class="highlight-lyric">如果我说不吻你不罢休 谁能逼我将就 你一出场别人都显得不过如此</div>
+               <div class="lyric-line">其实我觉得这样不值 可没选择方式 他们不过将就</div>
+           </div>
+      
+            <!-- 可惜没如果 - 林俊杰 -->
+            <div class="song-item">
+                <div class="song-title">可惜没如果</div>
+                <div class="song-singer">演唱：林俊杰</div>
+                <div class="lyric-line">如果早点了解 那率性的你</div>
+                <div class="lyric-line">或者晚一点 遇上成熟的我</div>
+                <div class="highlight-lyric">可惜没如果 只剩下结果</div>
+                <div class="lyric-line">如果那天我 不受情绪挑拨</div>
+                <div class="lyric-line">你会怎么做 那么多如果 可能如果我</div>
+                <div class="lyric-line">可惜没如果 没有你</div>
+           </div>
+       </div> <!-- 新增：闭合music-lyrics容器 -->
+    <section class="section contact" id="contact">
+    
+        <h2 class="section-title">联系我们</h2>
+        <div class="contact-info" style="display: flex; flex-direction: column; gap: 1rem; align-items: center; position: relative; z-index: 1;">
+            <div style="font-size: 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <span>邮箱：</span>
+                <span>HUYITECHNOLOGY@Outlook.com</span>
+            </div>
+            <div style="font-size: 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <span>过往：</span>
+                <span>已封存 不再提及</span>
+            </div>
+            <div style="font-size: 1rem; display: flex; align-items: center; gap: 0.6rem;">
+                <span>未来：</span>
+                <span>各自安好 不再打扰</span>
+            </div>
+        </div>
+    </section>
+     
+        <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">湖癔科技 & 烬余 无归 HUYITECHNOLOGY</div>
+            <div class="footer-desc">
+                真心错付 深情被负 | 从此 山水不相逢 此生不复见
+            </div>
+            <div class="footer-copyright">
+                © 2026 湖癔科技（HUYITECHNOLOGY）版权所有 | 烬余版 | 致敬湖癔＆彼得帕克
+            </div>
+        </div>
+    </footer>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+    <div class="music-controls">
+        <button class="music-btn" id="prev-btn" onclick="changeSong(-1)">⏮️</button>
+        <button class="music-btn" id="play-btn" onclick="togglePlay()">▶️</button>
+        <button class="music-btn" id="next-btn" onclick="changeSong(1)">⏭️</button>
+    </div>
+
+    <script>
+        // 音乐控制（优化后：修复链接格式+补充有效链接+修正数组语法）
+        const music = document.getElementById('background-music');
+        const audioSource = document.getElementById('audio-source');
+        const playBtn = document.getElementById('play-btn');
+        let isPlaying = false;
+        // 仅保留有效 .mp3 链接，新增 2 个备用伤感歌曲链接（适配网站风格）
+        const songList = [
+            "https://image2url.com/r2/bucket1/audio/1767918390720-f926a9c8-1f92-4a2d-8007-d72ddac4f9fd.mp3",
+            "https://image2url.com/r2/bucket2/audio/1767918433595-2a1a4176-3e71-4d3e-b3ac-9c38fa9b7ba7.mp3",
+            "https://image2url.com/r2/bucket2/audio/1767918483535-4b80a757-9939-446f-817f-1fb2356af227.mp3",
+            "https://image2url.com/r2/bucket1/audio/1767918575099-06f0f1d1-69b7-4c53-b8fd-d192e1d97690.mp3",
+            "https://image2url.com/r2/bucket3/audio/1767918641045-c071ca9a-f51c-4c79-8b51-db622bb60225.mp3",
+            "https://image2url.com/r2/bucket1/audio/1767918695188-774e0363-726a-44f8-9fa2-c7a44c4565dd.mp3",
+        ];
+        let currentSongIndex = 0;
+        
+        function togglePlay() {
+            if (isPlaying) {
+                music.pause();
+                playBtn.innerHTML = '▶️';
+            } else {
+                music.play().then(() => {
+                    playBtn.innerHTML = '⏸️';
+                }).catch(err => {
+                    alert('音频播放失败，原因：' + err.message + '，请检查网络或刷新页面！');
+                });
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        function changeSong(direction) {
+            currentSongIndex += direction;
+            if (currentSongIndex < 0) currentSongIndex = songList.length - 1;
+            if (currentSongIndex >= songList.length) currentSongIndex = 0;
+            audioSource.src = songList[currentSongIndex];
+            music.load();
+            if (isPlaying) {
+                music.play().catch(err => {
+                    alert('切换歌曲失败：' + err.message);
+                });
+            }
+        }
+        
+        // 视频播放控制
+        const video = document.getElementById('sad-video');
+        function toggleVideoPlay() {
+            if (video.paused) {
+                video.play().catch(err => {
+                    alert('视频播放失败，原因：' + err.message + '，请检查视频链接！');
+                });
+            } else {
+                video.pause();
+            }
+        }
+    </script>
+</body>
+</html>

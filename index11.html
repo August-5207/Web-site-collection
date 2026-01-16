@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>湖癔科技 | 用户反馈中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --tech-blue: #165DFF;
+            --tech-blue-light: #E8F3FF;
+            --tech-blue-dark: #0E42D2;
+            --text-dark: #0F2E68;
+            --gray-bg: #f5f7fa;
+            --glow-color: rgba(22, 93, 255, 0.4);
+        }
+        body {
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            background-color: var(--gray-bg);
+            overflow-x: hidden;
+            position: relative;
+            cursor: default;
+            padding-top: 90px;
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+        }
+        .warm-tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--tech-blue-light);
+            color: var(--text-dark);
+            padding: 0.25rem 0;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+        .warm-tips-content {
+            display: inline-block;
+            animation: scroll 40s linear 0s infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .newyear-banner {
+            background: linear-gradient(135deg, var(--tech-blue), var(--tech-blue-dark));
+            color: #fff;
+            text-align: center;
+            padding: 0.5rem 0;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 24px;
+            width: 100%;
+            z-index: 999;
+            font-feature-settings: "tnum" on;
+        }
+        .navbar {
+            background-color: #fff;
+            padding: 0.7rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 54px;
+            width: 100%;
+            z-index: 998;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo-main {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--tech-blue);
+        }
+        .logo-divider {
+            width: 2px;
+            height: 18px;
+            background-color: var(--tech-blue);
+        }
+        .logo-en {
+            font-size: 0.8rem;
+            color: var(--tech-blue-dark);
+            letter-spacing: 0;
+            font-weight: 900;
+            text-shadow: 0 0 1px rgba(14, 66, 210, 0.3);
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .nav-toggle {
+            font-size: 1.3rem;
+            color: var(--tech-blue);
+            cursor: pointer;
+        }
+        .nav-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 0.7rem 4%;
+            gap: 0.5rem;
+            z-index: 997;
+        }
+        .nav-links.active {
+            display: flex;
+        }
+        .nav-links a {
+            font-size: 0.8rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .nav-links a:hover {
+            color: var(--tech-blue);
+        }
+        .btn {
+            background: var(--tech-blue);
+            color: #fff;
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        .btn:hover {
+            background: var(--tech-blue-dark);
+        }
+        .btn-feedback {
+            background: var(--tech-blue-light);
+            color: var(--text-dark);
+        }
+        .btn-feedback:hover {
+            background: var(--tech-blue);
+            color: #fff;
+        }
+        .hero {
+            height: calc(100vh - 90px);
+            background: linear-gradient(rgba(15, 46, 104, 0.8), rgba(22, 93, 255, 0.8)), url("https://picsum.photos/id/180/1920/1080") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4%;
+            margin: 0 auto;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-title {
+            font-size: 1.7rem;
+            margin-bottom: 0.7rem;
+            letter-spacing: 1px;
+        }
+        .hero-subtitle {
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+        .hero-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+            width: 85%;
+        }
+        .hero-btn-group .btn {
+            width: 100%;
+        }
+        .section {
+            padding: 1.8rem 4%;
+            background: #fff;
+            margin: 0.8rem auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 1;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid var(--tech-blue-light);
+            text-align: center;
+        }
+        .section-title-feedback {
+            color: var(--tech-blue);
+            border-bottom-color: var(--tech-blue);
+        }
+        .feedback-card {
+            background: #f9f9f9;
+            padding: 1.3rem;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border-left: 3px solid var(--tech-blue);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .feedback-card::before {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: linear-gradient(transparent, var(--glow-color), transparent);
+            border-radius: 50%;
+            animation: rotate 12s linear infinite;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .feedback-card:hover::before {
+            opacity: 1;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .guide-text {
+            text-align: center;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.3rem;
+            position: relative;
+            z-index: 1;
+            padding: 0 0.5rem;
+        }
+        .guide-text strong {
+            color: var(--tech-blue);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .form-group label .required {
+            color: #E63946;
+            margin-left: 3px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--tech-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
+        }
+        .form-group textarea {
+            min-height: 140px;
+            resize: none;
+            line-height: 1.6;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--tech-blue), var(--tech-blue-dark));
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0;
+            margin-top: 0.7rem;
+            position: relative;
+            z-index: 1;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(22, 93, 255, 0.3);
+        }
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #result {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        .success {
+            color: #27ae60;
+        }
+        .error {
+            color: #E63946;
+        }
+        .dynamic-slogan {
+            text-align: center;
+            color: var(--tech-blue-dark);
+            font-size: 0.85rem;
+            margin-bottom: 1.3rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+        .about-us {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0.7rem 0;
+        }
+        .about-us p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.85rem;
+            margin-bottom: 0.7rem;
+        }
+        .footer {
+            background: var(--text-dark);
+            color: #a8b2d1;
+            padding: 1.8rem 4%;
+            margin-top: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.7rem;
+        }
+        .footer-desc {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .contact-us {
+            margin: 1rem 0;
+            padding: 0.7rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .contact-us h3 {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .contact-item {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-copyright {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+            padding-top: 0.7rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            background-color: var(--tech-blue);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 997;
+            font-size: 0.95rem;
+        }
+        .back-to-top:hover {
+            background-color: var(--tech-blue-dark);
+        }
+        @media (max-width: 375px) {
+            .newyear-banner {
+                font-size: 0.75rem;
+            }
+            .hero-title {
+                font-size: 1.6rem;
+            }
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+            .guide-text {
+                font-size: 0.9rem;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .hero-btn-group {
+                flex-direction: row;
+                width: 60%;
+            }
+            .hero-btn-group .btn {
+                flex: 1;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 滚动通知栏 -->
+    <div class="warm-tips">
+        <div class="warm-tips-content">
+            湖癔科技反馈通道开放|产品/体验/建议/湖癔相关均可反馈|专人跟进·24小时响应·持续同步进度·您的声音是我们的动力
+        </div>
+    </div>
+    <!-- 品牌横幅（精简后） -->
+    <div class="newyear-banner">
+        湖癔科技 | 用户反馈中心 | 倾听建议·优化体验·正视问题·积极改进
+    </div>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <div class="logo-main">湖癔科技</div>
+            <div class="logo-divider"></div>
+            <div class="logo-en">HUYITECHNOLOGY</div>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-toggle" onclick="toggleNav()">☰</div>
+            <div class="nav-btns">
+                <a href="#feedback-form" class="btn btn-feedback">我要反馈</a>
+            </div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#feedback-form">反馈表单</a></li>
+            <li><a href="#about-us">关于我们</a></li>
+            <li><a href="#contact-us">联系我们</a></li>
+        </ul>
+    </nav>
+    <!-- 英雄区 -->
+    <section class="hero" id="home">
+        <h1 class="hero-title">用户反馈中心</h1>
+        <p class="hero-subtitle">湖癔及科技相关问题、建议均可反馈，敢说敢改</p>
+        <div class="hero-btn-group">
+            <a href="#feedback-form" class="btn btn-feedback">立即反馈</a>
+            <a href="#about-us" class="btn">关于我们</a>
+        </div>
+    </section>
+    <!-- 反馈表单区 -->
+    <section class="section" id="feedback-form">
+        <h2 class="section-title section-title-feedback">提交您的反馈与建议</h2>
+        <div class="feedback-card">
+            <div class="guide-text">
+                产品功能问题、使用体验不佳、新功能构想、发展建议等真实想法，<br>
+                <strong>均可在此告知我们，我们会逐一跟进处理，及时反馈</strong>
+            </div>
+            <p class="dynamic-slogan" id="dynamic-slogan"></p>
+            <!-- 表单提交地址指向统一接口 -->
+            <form id="feedbackForm" action="http://101.126.92.71/submit-all.php" method="post">
+                <input type="hidden" name="form_type" value="feedback">
+                <div class="form-group">
+                    <label>您的昵称 <span class="required">*</span></label>
+                    <input type="text" name="username" required placeholder="请输入您的昵称">
+                </div>
+                <div class="form-group">
+                    <label>您的QQ <span class="required">*</span></label>
+                    <input type="text" name="contact" required placeholder="方便及时沟通（仅支持QQ）">
+                </div>
+                <div class="form-group">
+                    <label>您的邮箱 <span class="required">*</span></label>
+                    <input type="email" name="user_email" required placeholder="用于接收提交确认邮件">
+                </div>
+                <div class="form-group">
+                    <label>反馈内容 <span class="required">*</span></label>
+                    <textarea name="content" required placeholder="请详细描述您的问题或建议..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">提交反馈</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </section>
+    <!-- 关于我们区 -->
+    <section class="section" id="about-us">
+        <h2 class="section-title">关于我们</h2>
+        <div class="about-us">
+            <p>湖癔科技成立于2025年9月，专注网络安全、数字化转型领域，核心服务涵盖防火墙、安全优化等全场景。</p>
+            <p>秉持"用户至上"理念，重视每一条反馈，通过持续迭代，提供更优质的产品与服务。</p>
+            <p>未来将深化技术创新，拓展业务边界，与用户携手共进，共创数字化美好未来。</p>
+        </div>
+    </section>
+    <!-- 联系我们区 -->
+    <section class="section" id="contact-us">
+        <h2 class="section-title">联系我们（创始人）</h2>
+        <div class="contact-us">
+            <div class="contact-info">
+                <div class="contact-item">QQ：3576607747</div>
+                <div class="contact-item">在线时间：全天在线（反馈24小时内响应）</div>
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">湖癔科技 HUYITECHNOLOGY</div>
+            <div class="footer-desc">
+                倾听用户声音，优化产品体验<br>
+                专注网络技术，赋能数字化转型
+            </div>
+            <div class="contact-us">
+                <h3>联系我们（公司）</h3>
+                <div class="contact-info">
+                    <div class="contact-item">邮箱：HUYITECHNOLOGY@Outlook.com</div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                © 2026 湖癔科技（HUYITECHNOLOGY）版权所有
+            </div>
+        </div>
+    </footer>
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</div>
+    <script>
+        // 10条标语数组，按顺序轮播
+        const slogans = [
+            "您的每一条建议，都是我们进步的动力",
+            "用心倾听反馈，用行动优化体验",
+            "您的满意，是我们永恒的追求",
+            "反馈无小事，改善无止境",
+            "每一次吐槽，都是成长的契机",
+            "您的声音，我们认真聆听",
+            "细节决定成败，反馈成就完美",
+            "携手用户，共建更好的湖癔科技",
+            "真诚接受建议，持续迭代升级",
+            "您的反馈，是产品迭代的指南针"
+        ];
+        // 获取当前页面刷新次数（用localStorage记录，按顺序切换）
+        let visitCount = localStorage.getItem('huyi_visit_count') || 0;
+        visitCount = parseInt(visitCount) % slogans.length;
+        document.getElementById('dynamic-slogan').textContent = slogans[visitCount];
+        // 更新刷新次数，下次打开切换下一句
+        localStorage.setItem('huyi_visit_count', visitCount + 1);
+        // 表单提交逻辑
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const resultDiv = document.getElementById('result');
+            
+            // 提交动画效果
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "提交中...";
+            resultDiv.innerText = "";
+
+            // 提交到统一接口
+            fetch('http://101.126.92.71/submit-all.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'text/plain'
+                },
+                mode: 'cors'
+            }).then(res => res.text()).then(data => {
+                if (data.includes("成功")) {
+                    resultDiv.className = "success";
+                } else {
+                    resultDiv.className = "error";
+                }
+                resultDiv.innerText = data;
+                this.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = "提交反馈";
+                // 3秒后清空提示
+                setTimeout(() => {
+                    resultDiv.innerText = "";
+                }, 3000);
+            }).catch(error => {
+                resultDiv.className = "error";
+                resultDiv.innerText = "提交失败，请检查网络或服务器状态";
+                submitBtn.disabled = false;
+                submitBtn.textContent = "提交反馈";
+            });
+        });
+        // 导航菜单控制
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // 导航链接点击后关闭菜单
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+        
+        // 滚动时关闭菜单
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            if (scrollTop > 50) {
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
